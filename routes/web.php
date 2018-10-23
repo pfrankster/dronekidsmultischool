@@ -18,6 +18,11 @@ Route::get('/', function () {
 Route::get('/preenrollment', function () {
     return view('preenrollment');
 });
+Route::get('/preenrollmentTeste', function () {
+    return view('tests/preenrollment');
+});
+
+
 Route::get('preenrollment', 'PreEnrollmentController@preEnrollmentValidation');
 Route::post('preenrollment', 'PreEnrollmentController@preEnrollmentValidationPost');
 

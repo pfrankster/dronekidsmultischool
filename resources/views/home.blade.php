@@ -8,6 +8,8 @@
             <div class="title">teste 5</div>
         </div>
         <td><button onclick="location.href='{{ url('preenrollment') }}'">
-     Form</button></td>
+        preenrollment</button></td>
+        <td><button onclick="location.href='{{ url('preenrollmentTeste') }}'">
+        tmp preenrollment Test</button></td>
     </div>
 @endsection
