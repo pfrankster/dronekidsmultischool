@@ -1,3 +1,2 @@
 # dronekidsmultischool
-
-Codigo do GMSMS
+Trabalhos de update do Multischool
