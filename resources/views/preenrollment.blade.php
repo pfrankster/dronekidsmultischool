@@ -12,7 +12,7 @@
         ?>
         <div class="content">
             <div class="title">Pre-Enrollment</div>
-            <form method="POST" autocomplete="off">
+            <form method="POST" action="preenrollment" autocomplete="off">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @if(count($errors))
                 <div class="alert alert-danger">
@@ -194,73 +194,33 @@
                 
             </div> 
             <div id="gTerms">
-                <input type="checkbox" name="pmTermsAccept" value="acceptContract"> Accept Terms
+                <input id="pmTermsAccept" type="checkbox" name="pmTermsAccept" value="acceptContract"> Accept Terms
                 <a href="https://www.w3schools.com/" target="_blank">Contract</a><br>                
             </div>  
-                <input type="submit">
+                <input id"btnSubmit" type="submit">
             </form>
             <br><br><br>
         </div>
     </div>
     <td><button class="content" onclick="location.href='{{ url('') }}'">
      Form</button></td>
-
-     <script>
-        $(document).ready(function(){
-            $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-            $("#pmSchool").change (function(){
-                //Extremamente importante
-                
-                $.post('getClasses',{schoolId : $("#pmSchool").val()}, function(response){ 
-                    $('#pmClass').children('option:not(:first)').remove();
-                    $('#pmSection').children('option:not(:first)').remove();
-                    $("#pmClass").val("");
-                    $("#pmSection").val("");
-                    $.each(response, function(index, data){
-                        $('#pmClass')
-                        .append($("<option></option>")
-                        .attr("value",data.id)
-                        .text(data.name));
-                    });                    
-                });
-            });
-            $("#pmClass").change (function(){
-                //Extremamente importante
-                $("#pmSection").val("");
-                $.post('getSections',{schoolId : $("#pmSchool").val(),classId : $("#pmClass").val()}, function(response){ 
-                    $('#pmSection').children('option:not(:first)').remove();
-                    $.each(response, function(index, data){
-                        $('#pmSection')
-                        .append($("<option></option>")
-                        .attr("value",data.id)
-                        .text(data.name));
-                    });                    
-                });
-            });
-            $("form").submit(function(){
-                $.post('submitpreenroll',{
-                        guardianName : $("#guardianName").val(),
-                        guardianCPF : $("#guardianCPF").val(), 
-                        guardianPhone : $("#guardianPhone").val(), 
-                        address : $("#address").val(), 
-                        state : $("#state").val(), 
-                        city : $("#city").val(), 
-                        email : $("#email").val(), 
-                        guardianRelation : $("#guardianRelation").val(), 
-                        studentName : $("#studentName").val(), 
-                        studentGender : $("#studentGender").val(), 
-                        sectionId : $("#pmSection").val(), 
-                        paymantType : $("#pmPaymantType").val(), 
-                        
-                    }, function(response){ 
-                        console.log(response);              
-                });
-                return false;
-            });
-        });
+    <script src="../resources/js/dbpreenrollment.js"></script>
+     <script type="text/javascript">
+    //  function teste(){
+    //             console.log("teste:" + document.getElementById("pmTermsAccept").checked);
+    //             console.log("Disabled:" + $(":submit").is(":disabled");
+    //         }
+    //     $(document).ready(function(){
+    //         // $("#pmTermsAccept").change(function() {
+    //         //     if(document.getElementById("pmTermsAccept").checked) {
+    //         //         console.log("1");
+    //         //         $("#submit").disabled = false;
+    //         //      } else {
+    //         //         console.log("2");
+    //         //         // document.getElementById("submit").disabled;
+    //         //     }
+    //         // });
+            
+    //     });
      </script>
 @endsection

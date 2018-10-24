@@ -23,7 +23,7 @@ Route::get('/preenrollmentTeste', function () {
 });
 
 
-Route::get('preenrollment', 'PreEnrollmentController@preEnrollmentValidation');
+// Route::get('preenrollment', 'PreEnrollmentController@preEnrollmentValidation');
 Route::post('preenrollment', 'PreEnrollmentController@preEnrollmentValidationPost');
 
 
