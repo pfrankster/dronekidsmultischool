@@ -5,10 +5,10 @@
 @section('content')
     <div class="container">
         <?php
-        $paymentTypes = DB::table('tmp_payman_types')->get();
-        $classes = DB::table('tmp_classes')->get();
-        $shools = DB::table('tmp_schools')->get();
-        $sections = DB::table('tmp_sections')->get();
+        use \App\Http\Controllers\DataBaseController;
+        $paymentTypes = DataBaseController::getPaymentTypes();
+        $shools = DataBaseController::getShools();
+
         ?>
 	    <h2>Form Validation</h2>
         <div class="content">
@@ -154,11 +154,6 @@
                             <label for="pmClass">Class:</label>
                             <select id="pmClass" name="pmClass" class="form-control" value="{{ old('pmClass') }}">
                             <option disabled selected value> -- Select an Class -- </option>
-                            <?php 
-                                foreach($classes as $class){
-                                    echo "<option value=" . $class->id . ">" . $class->name ."</option>";
-                                } 
-                            ?>
                             </select>
                             <span class="text-danger">{{ $errors->first('pmClass') }}</span>
                         </div>
@@ -173,11 +168,7 @@
                             <label for="pmSection">Section:</label>
                             <select id="pmSection" name="pmSection" class="form-control" value="{{ old('pmSection') }}">
                                 <option disabled selected value> -- Select an Section -- </option>
-                                <!-- <?php 
-                                    foreach($sections as $section){
-                                        echo "<option value=" . $section->id . ">" . $section->name ."</option>";
-                                    } 
-                                ?> -->
+                                
                             </select>
                             <span class="text-danger">{{ $errors->first('pmSection') }}</span>
                         </div>
@@ -217,13 +208,39 @@
 
      <script>
         $(document).ready(function(){
-            $("#pmSchool").change (function(){
-                $.post('preenrollment/test', function(){ 
-                    console.log('response'); 
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
-                //  $.get("requestSections.asp",function(data, status){
-                //     alert("Data: " + data + "\nStatus: " + status);
-                //  });
+            $("#pmSchool").change (function(){
+                //Extremamente importante
+                
+                $.post('getClasses',{schoolId : $("#pmSchool").val()}, function(response){ 
+                    $('#pmClass').children('option:not(:first)').remove();
+                    $('#pmSection').children('option:not(:first)').remove();
+                    $("#pmClass").val("");
+                    $("#pmSection").val("");
+                    $.each(response, function(index, data){
+                        $('#pmClass')
+                        .append($("<option></option>")
+                        .attr("value",data.id)
+                        .text(data.name));
+                    });                    
+                });
+            });
+            $("#pmClass").change (function(){
+                //Extremamente importante
+                $("#pmSection").val("");
+                $.post('getSections',{schoolId : $("#pmSchool").val(),classId : $("#pmClass").val()}, function(response){ 
+                    $('#pmSection').children('option:not(:first)').remove();
+                    $.each(response, function(index, data){
+                        $('#pmSection')
+                        .append($("<option></option>")
+                        .attr("value",data.id)
+                        .text(data.name));
+                    });                    
+                });
             });
         });
      </script>

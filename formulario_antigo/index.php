@@ -329,7 +329,7 @@ body{
 					var escolacorrente = document.getElementById("escola").value;
 
 					//alert(escolacorrente);
-
+					
 					
 
 					$.get('cursos.php?search=' + escolacorrente, function(data){

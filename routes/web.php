@@ -30,3 +30,5 @@ Route::post('preenrollment', 'PreEnrollmentController@preEnrollmentValidationPos
 Route::get('preenrollment/test', 'TmpSectionController@testfunction');
 Route::post('preenrollment/test', 'TmpSectionController@testfunction');
 
+Route::post('getClasses', 'DataBaseController@getClassesBy');
+Route::post('getSections', 'DataBaseController@getSectionsBy');
