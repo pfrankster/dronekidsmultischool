@@ -10,10 +10,9 @@
         $shools = DataBaseController::getShools();
 
         ?>
-	    <h2>Form Validation</h2>
         <div class="content">
             <div class="title">Pre-Enrollment</div>
-            <form method="POST" action="preenrollment" autocomplete="off">
+            <form method="POST" autocomplete="off">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @if(count($errors))
                 <div class="alert alert-danger">
@@ -241,6 +240,26 @@
                         .text(data.name));
                     });                    
                 });
+            });
+            $("form").submit(function(){
+                $.post('submitpreenroll',{
+                        guardianName : $("#guardianName").val(),
+                        guardianCPF : $("#guardianCPF").val(), 
+                        guardianPhone : $("#guardianPhone").val(), 
+                        address : $("#address").val(), 
+                        state : $("#state").val(), 
+                        city : $("#city").val(), 
+                        email : $("#email").val(), 
+                        guardianRelation : $("#guardianRelation").val(), 
+                        studentName : $("#studentName").val(), 
+                        studentGender : $("#studentGender").val(), 
+                        sectionId : $("#pmSection").val(), 
+                        paymantType : $("#pmPaymantType").val(), 
+                        
+                    }, function(response){ 
+                        console.log(response);              
+                });
+                return false;
             });
         });
      </script>
