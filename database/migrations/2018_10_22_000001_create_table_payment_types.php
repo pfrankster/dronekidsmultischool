@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTmpPaymanTypesTable extends Migration
+class CreateTablePaymentTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTmpPaymanTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tmp_payman_types', function (Blueprint $table) {
+        Schema::create('table_payman_types', function (Blueprint $table) {
             $table->increments('id')->autoIncrement();
             $table->string('name');
             // $table->timestamps();
@@ -27,6 +27,6 @@ class CreateTmpPaymanTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tmp_payman_types');
+        //
     }
 }

@@ -17,15 +17,16 @@ class PreEnrollmentController extends Controller
     public function preEnrollmentValidationPost(Request $request)
     {
     	$this->validate($request,[
-				'guardianName' => 'required',
-				'guardianCPF' => 'required',
-				'guardianPhone' => 'required',
+				'guardianName' => 'required|max:255',
+				'guardianCPF' => 'required|max:18',
+				//regex:/^\(([0-9]{2})\)\s*([0-9]{4,5})[- ]*[0-9]{4}$/i
+				'guardianPhone' => 'required|max:19',
 				'guardianRelation' => 'required',
-				'address' => 'required',
-				'state' => 'required',
-				'city' => 'required',
-				'email' => 'required',
-				'studentName' => 'required',
+				'address' => 'required|max:100',
+				'state' => 'required|max:100',
+				'city' => 'required|max:100',
+				'email' => 'required|email|max:255',
+				'studentName' => 'required|max:255',
 				'studentGender' => 'required',
 				'pmSchool' => 'required',
 				'pmClass' => 'required',
@@ -54,6 +55,7 @@ class PreEnrollmentController extends Controller
 				//=====  BR  =====
 				'guardianName.required' => ' O Nome do Responsavel é obrigatorio',
 				'ApmTermsAccept.accepted' => ' Os termos de contratos precisão ser aceitos',
+				'guardianPhone.regex' => 'O numero do telefonico não é valido' 
     		]);
 
 		dd('You are successfully added all fields.');

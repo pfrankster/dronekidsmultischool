@@ -30,7 +30,7 @@ class DataBaseController extends Controller
     }
 
     static function getPaymentTypes(){
-        return DB::table('tmp_payman_types')->get();
+        return DB::table('table_payman_types')->get();
         // return [(object) ["id"=>1,"name"=>"Boleto"],(object) ["id"=>2,"name"=>"Cartão"]];
     }
 

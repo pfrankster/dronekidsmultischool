@@ -24,22 +24,22 @@ class seedSection extends Seeder
             'classId' => 2,
         ]);
         DB::table('tmp_sections')->insert([
-            'name' => "A",
+            'name' => "C",
             'schoolid' => 2,
             'classid' => 2,
         ]);
         DB::table('tmp_sections')->insert([
-            'name' => "B",
+            'name' => "D",
             'schoolId' => 2,
             'classId' => 3,
         ]);
         DB::table('tmp_sections')->insert([
-            'name' => "A",
+            'name' => "E",
             'schoolId' => 3,
             'classId' => 3,
         ]);
         DB::table('tmp_sections')->insert([
-            'name' => "B",
+            'name' => "F",
             'schoolId' => 3,
             'classId' => 4,
         ]);

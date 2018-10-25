@@ -40,7 +40,7 @@
                     <div class="col-md-6">
                         <div class="form-group {{ $errors->has('guardianCPF') ? 'has-error' : '' }}">
                             <label for="guardianCPF">CPF:</label>
-                            <input type="text" id="guardianCPF" name="guardianCPF" class="form-control" placeholder="Enter CPF" value="{{ old('guardianCPF') }}">
+                            <input type="text" id="guardianCPF" name="guardianCPF" class="form-control" placeholder="Enter CPF" value="{{ old('guardianCPF') }} ">
                             <span class="text-danger">{{ $errors->first('guardianCPF') }}</span>
                         </div>
                     </div>
@@ -50,7 +50,8 @@
                     <div class="col-md-6">
                         <div class="form-group {{ $errors->has('guardianPhone') ? 'has-error' : '' }}">
                             <label for="guardianPhone">Telephone:</label>
-                            <input type="text" id="guardianPhone" name="guardianPhone" class="form-control" placeholder="Enter Telephone" value="{{ old('guardianPhone') }}">
+                            <input type="tel" id="guardianPhone" name="guardianPhone" class="form-control" placeholder="Enter Telephone" value="{{ old('guardianPhone') }}">
+                            <!-- <input id="guardianPhone" type="tel" name="guardianPhone" placeholder="(XX) XXX-XXXX" pattern="\(\d{3}\) \d{3}\-\d{4}" class="masked form-control" value="{{ old('guardianPhone') }}"> -->
                             <span class="text-danger">{{ $errors->first('guardianPhone') }}</span>
                         </div>
                     </div>
@@ -197,7 +198,7 @@
                 <input id="pmTermsAccept" type="checkbox" name="pmTermsAccept" value="acceptContract"> Accept Terms
                 <a href="https://www.w3schools.com/" target="_blank">Contract</a><br>                
             </div>  
-                <input id"btnSubmit" type="submit">
+                <input id="btnSubmit" type="submit">
             </form>
             <br><br><br>
         </div>
@@ -205,22 +206,25 @@
     <td><button class="content" onclick="location.href='{{ url('') }}'">
      Form</button></td>
     <script src="../resources/js/dbpreenrollment.js"></script>
+    <script src="../resources/js/inputmask.js"></script>
      <script type="text/javascript">
+     
     //  function teste(){
     //             console.log("teste:" + document.getElementById("pmTermsAccept").checked);
     //             console.log("Disabled:" + $(":submit").is(":disabled");
     //         }
-    //     $(document).ready(function(){
-    //         // $("#pmTermsAccept").change(function() {
-    //         //     if(document.getElementById("pmTermsAccept").checked) {
-    //         //         console.log("1");
-    //         //         $("#submit").disabled = false;
-    //         //      } else {
-    //         //         console.log("2");
-    //         //         // document.getElementById("submit").disabled;
-    //         //     }
-    //         // });
+        $(document).ready(function(){
+            $("#pmTermsAccept").change(function() {
+                if(this.checked) {
+                    console.log("1");
+                    $("#btnSubmit").disabled = false;
+                 } else {
+                    console.log("2");
+                    // $("#btnSubmit").disabled = true;
+                    document.getElementById("submit").disabled=true;
+                }
+            });
             
-    //     });
+        });
      </script>
 @endsection

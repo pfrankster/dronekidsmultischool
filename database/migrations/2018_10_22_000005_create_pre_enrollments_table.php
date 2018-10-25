@@ -16,18 +16,18 @@ class CreatePreEnrollmentsTable extends Migration
         Schema::create('pre_enrollments', function (Blueprint $table) {
             $table->increments('id')->autoIncrement();
             $table->string('guardianName');
-            $table->string('guardianCPF',14);
+            $table->string('guardianCPF',18);
             $table->string('guardianPhone',19);
             $table->string('guardianRelation',14);
-            $table->string('address',92);
+            $table->string('address',100);
             $table->string('state',100);
-            $table->string('city',58);
+            $table->string('city',100);
             $table->string('email');
             $table->string('studentName');
             $table->string('studentGender',6);
             $table->unsignedInteger('sectionId');
             $table->string('paymentType');
-            $table->string('status',20);
+            $table->string('status',20)->default("Weiting Payment");
             // $table->timestamps();
         });
     }
