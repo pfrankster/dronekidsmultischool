@@ -58,7 +58,7 @@ class PreEnrollmentController extends Controller
 				'guardianPhone.regex' => 'O numero do telefonico não é valido' 
     		]);
 
-		dd('You are successfully added all fields.');
-		// return view('preenrollment');
+		// dd('You are successfully added all fields.');
+		return view('preenrollment');
     }
 }

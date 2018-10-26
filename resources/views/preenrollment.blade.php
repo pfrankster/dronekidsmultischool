@@ -219,14 +219,15 @@
         $(document).ready(function(){
             $("#peTermsAccept").change(function() {
                 if(this.checked) {
-                    console.log("1");
+                    // console.log("1");
                     $("#btnSubmit").disabled = false;
                  } else {
-                    console.log("2");
+                    // console.log("2");
                     // $("#btnSubmit").disabled = true;
                     document.getElementById("submit").disabled=true;
                 }
             });
+           
             
         });
      </script>

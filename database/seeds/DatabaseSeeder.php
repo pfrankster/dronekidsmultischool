@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         // $this->call('UserTableSeeder');
         // $this->call('seedClass');
         $this->call('seedPaymantType');
+        $this->call('seedPEStatus');
         // $this->call('seedSchool');
         // $this->call('seedSection');
         $this->command->info('User table seeded!');

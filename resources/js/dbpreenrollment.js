@@ -21,7 +21,7 @@ $(document).ready(function(){
         });
     });
     $("#peClass").change (function(){
-        console.log("teste");
+        // console.log("teste");
         $("#peSection").val("");
         $.post('getSections',{schoolId : $("#peSchool").val(),classId : $("#peClass").val()}, function(response){ 
             $('#peSection').children('option:not(:first)').remove();
@@ -34,6 +34,7 @@ $(document).ready(function(){
         });
     });
     $("form").submit(function(){
+        // console.log("send submit");
         $.post('submitpreenroll',{
                 guardianName : $("#guardianName").val(),
                 guardianCPF : $("#guardianCPF").val(), 

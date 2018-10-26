@@ -55,7 +55,7 @@ class DataBaseController extends Controller
             'studentName' => $request->studentName,
             'studentGender' => $request->studentGender,
             'sectionId' => $request->sectionId,
-            'paymentType' => $request->paymantType]
+            'paymentTypeId' => $request->paymantType]
         );
 
         

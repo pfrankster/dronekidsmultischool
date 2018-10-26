@@ -13,7 +13,7 @@ class seedPaymantType extends Seeder
     {
         $tableName = 'paymant_types';
         // DB::table('tmpPaymanType')->delete();
-        DB::table($tableName)->truncate();
+        // DB::table($tableName)->truncate();
         DB::table($tableName)->insert([
             'name' => "Boleto"
         ]);

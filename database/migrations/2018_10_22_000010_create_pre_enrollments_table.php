@@ -26,8 +26,11 @@ class CreatePreEnrollmentsTable extends Migration
             $table->string('studentName');
             $table->string('studentGender',6);
             $table->unsignedInteger('sectionId');
-            $table->string('paymentType');
-            $table->string('status',20)->default("Weiting Payment");
+            $table->unsignedInteger('paymentTypeId');
+            $table->unsignedInteger('statusId')->default(1);
+            //$table->foreign('sectionId')->references('id')->on('turmas')->onDelete('cascade');;
+            $table->foreign('paymentTypeId')->references('id')->on('paymant_types')->onDelete('cascade');;
+            $table->foreign('statusId')->references('id')->on('pe_status')->onDelete('cascade');;
             // $table->timestamps();
         });
     }
