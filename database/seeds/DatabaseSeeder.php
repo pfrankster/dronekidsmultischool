@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
         Eloquent::unguard();
         // $this->call(UsersTableSeeder::class);
         // $this->call('UserTableSeeder');
-        $this->call('seedClass');
+        // $this->call('seedClass');
         $this->call('seedPaymantType');
-        $this->call('seedSchool');
-        $this->call('seedSection');
+        // $this->call('seedSchool');
+        // $this->call('seedSection');
         $this->command->info('User table seeded!');
     }
 

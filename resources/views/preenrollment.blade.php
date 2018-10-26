@@ -136,26 +136,26 @@
                 <div class="row">
                     
                     <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('pmSchool') ? 'has-error' : '' }}">
-                            <label for="pmSchool">School:</label>
-                            <select id="pmSchool" name="pmSchool" class="form-control" value="{{ old('pmSchool') }}">
+                        <div class="form-group {{ $errors->has('peSchool') ? 'has-error' : '' }}">
+                            <label for="peSchool">School:</label>
+                            <select id="peSchool" name="peSchool" class="form-control" value="{{ old('peSchool') }}">
                             <option disabled selected value> -- Select an School -- </option>
                             <?php 
                                 foreach($shools as $shool){
-                                    echo "<option value=" . $shool->id . ">" . $shool->name ."</option>";
+                                    echo "<option value=" . $shool->id . ">" . $shool->nome ."</option>";
                                 } 
                             ?>
                             </select>
-                            <span class="text-danger">{{ $errors->first('pmSchool') }}</span>
+                            <span class="text-danger">{{ $errors->first('peSchool') }}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('pmClass') ? 'has-error' : '' }}">
-                            <label for="pmClass">Class:</label>
-                            <select id="pmClass" name="pmClass" class="form-control" value="{{ old('pmClass') }}">
+                        <div class="form-group {{ $errors->has('peClass') ? 'has-error' : '' }}">
+                            <label for="peClass">Class:</label>
+                            <select id="peClass" name="peClass" class="form-control" value="{{ old('peClass') }}">
                             <option disabled selected value> -- Select an Class -- </option>
                             </select>
-                            <span class="text-danger">{{ $errors->first('pmClass') }}</span>
+                            <span class="text-danger">{{ $errors->first('peClass') }}</span>
                         </div>
                     </div>
                 </div>
@@ -164,13 +164,13 @@
 
                     ?>
                     <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('pmSection') ? 'has-error' : '' }}">
-                            <label for="pmSection">Section:</label>
-                            <select id="pmSection" name="pmSection" class="form-control" value="{{ old('pmSection') }}">
+                        <div class="form-group {{ $errors->has('peSection') ? 'has-error' : '' }}">
+                            <label for="peSection">Section:</label>
+                            <select id="peSection" name="peSection" class="form-control" value="{{ old('peSection') }}">
                                 <option disabled selected value> -- Select an Section -- </option>
                                 
                             </select>
-                            <span class="text-danger">{{ $errors->first('pmSection') }}</span>
+                            <span class="text-danger">{{ $errors->first('peSection') }}</span>
                         </div>
                     </div>
                 </div>
@@ -178,9 +178,9 @@
             <div id="gPaymant">
                 <div class="row ">
                     <div class="col-md-6 ">
-                        <div class="form-group {{ $errors->has('pmPaymantType') ? 'has-error' : '' }}">
-                            <label for="pmPaymantType">Paymant Type:</label>
-                            <select id="pmPaymantType" name="pmPaymantType" class="form-control" value="{{ old('pmPaymantType') }}">
+                        <div class="form-group {{ $errors->has('pePaymantType') ? 'has-error' : '' }}">
+                            <label for="pePaymantType">Paymant Type:</label>
+                            <select id="pePaymantType" name="pePaymantType" class="form-control" value="{{ old('pePaymantType') }}">
                             <option disabled selected value> -- Select an Payment Type -- </option>
                             <?php 
                                 foreach($paymentTypes as $paymentType){
@@ -188,14 +188,14 @@
                                 } 
                             ?>
                             </select>
-                            <span class="text-danger">{{ $errors->first('pmPaymantType') }}</span>
+                            <span class="text-danger">{{ $errors->first('pePaymantType') }}</span>
                         </div>
                     </div>
                 </div>
                 
             </div> 
             <div id="gTerms">
-                <input id="pmTermsAccept" type="checkbox" name="pmTermsAccept" value="acceptContract"> Accept Terms
+                <input id="peTermsAccept" type="checkbox" name="peTermsAccept" value="acceptContract"> Accept Terms
                 <a href="https://www.w3schools.com/" target="_blank">Contract</a><br>                
             </div>  
                 <input id="btnSubmit" type="submit">
@@ -205,16 +205,19 @@
     </div>
     <td><button class="content" onclick="location.href='{{ url('') }}'">
      Form</button></td>
-    <script src="../resources/js/dbpreenrollment.js"></script>
-    <script src="../resources/js/inputmask.js"></script>
+    
+     <script src="{{ URL::asset('../resources/js/dbpreenrollment.js') }}"></script>
+
+    
+    <!-- <script src="../resources/js/inputmask.js"></script> -->
      <script type="text/javascript">
      
     //  function teste(){
-    //             console.log("teste:" + document.getElementById("pmTermsAccept").checked);
+    //             console.log("teste:" + document.getElementById("peTermsAccept").checked);
     //             console.log("Disabled:" + $(":submit").is(":disabled");
     //         }
         $(document).ready(function(){
-            $("#pmTermsAccept").change(function() {
+            $("#peTermsAccept").change(function() {
                 if(this.checked) {
                     console.log("1");
                     $("#btnSubmit").disabled = false;

@@ -5,11 +5,9 @@
 @section('content')
     <div class="container">
         <div class="content">
-            <div class="title">teste 5</div>
+            <div class="title"></div>
         </div>
-        <td><button onclick="location.href='{{ url('preenrollment') }}'">
-        preenrollment</button></td>
-        <td><button onclick="location.href='{{ url('preenrollmentTeste') }}'">
-        tmp preenrollment Test</button></td>
+        <td><button class="title" onclick="location.href='{{ url('preenrollment') }}'">
+        Pre-Enrollment</button></td>
     </div>
 @endsection

@@ -5,29 +5,31 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-    $("#pmSchool").change (function(){
-        $.post('getClasses',{schoolId : $("#pmSchool").val()}, function(response){ 
-            $('#pmClass').children('option:not(:first)').remove();
-            $('#pmSection').children('option:not(:first)').remove();
-            $("#pmClass").val("");
-            $("#pmSection").val("");
+    $("#peSchool").change (function(){
+        // console.log("teste");
+        $.post('getClasses',{schoolId : $("#peSchool").val()}, function(response){ 
+            $('#peClass').children('option:not(:first)').remove();
+            $('#peSection').children('option:not(:first)').remove();
+            $("#peClass").val("");
+            $("#peSection").val("");
             $.each(response, function(index, data){
-                $('#pmClass')
+                $('#peClass')
                 .append($("<option></option>")
                 .attr("value",data.id)
-                .text(data.name));
+                .text(data.nome));
             });                    
         });
     });
-    $("#pmClass").change (function(){
-        $("#pmSection").val("");
-        $.post('getSections',{schoolId : $("#pmSchool").val(),classId : $("#pmClass").val()}, function(response){ 
-            $('#pmSection').children('option:not(:first)').remove();
+    $("#peClass").change (function(){
+        console.log("teste");
+        $("#peSection").val("");
+        $.post('getSections',{schoolId : $("#peSchool").val(),classId : $("#peClass").val()}, function(response){ 
+            $('#peSection').children('option:not(:first)').remove();
             $.each(response, function(index, data){
-                $('#pmSection')
+                $('#peSection')
                 .append($("<option></option>")
                 .attr("value",data.id)
-                .text(data.name));
+                .text(data.deschorario));
             });                    
         });
     });
@@ -43,8 +45,8 @@ $(document).ready(function(){
                 guardianRelation : $("#guardianRelation").val(), 
                 studentName : $("#studentName").val(), 
                 studentGender : $("#studentGender").val(), 
-                sectionId : $("#pmSection").val(), 
-                paymantType : $("#pmPaymantType").val(), 
+                sectionId : $("#peSection").val(), 
+                paymantType : $("#pePaymantType").val(), 
                 
             }, function(response){ 
                 console.log(response);              

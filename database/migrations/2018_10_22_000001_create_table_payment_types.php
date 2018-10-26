@@ -13,7 +13,7 @@ class CreateTablePaymentTypes extends Migration
      */
     public function up()
     {
-        Schema::create('table_payman_types', function (Blueprint $table) {
+        Schema::create('paymant_types', function (Blueprint $table) {
             $table->increments('id')->autoIncrement();
             $table->string('name');
             // $table->timestamps();
@@ -27,6 +27,6 @@ class CreateTablePaymentTypes extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('paymant_types');
     }
 }
