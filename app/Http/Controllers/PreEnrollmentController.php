@@ -28,11 +28,11 @@ class PreEnrollmentController extends Controller
 				'email' => 'required|email|max:255',
 				'studentName' => 'required|max:255',
 				'studentGender' => 'required',
-				'pmSchool' => 'required',
-				'pmClass' => 'required',
-				'pmSection' => 'required',
-				'pmPaymantType' => 'required',
-				'ApmTermsAccept' => 'accepted'
+				// 'pmSchool' => 'required',
+				// 'pmClass' => 'required',
+				// 'pmSection' => 'required',
+				// 'pmPaymantType' => 'required',
+				// 'ApmTermsAccept' => 'accepted'
     		],[
 				//=====  EN  =====
 				// 'guardianName.required' => ' The Guardian Name is required.',

@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <?php
-        use \App\Http\Controllers\DataBaseController;
+        use App\Http\Controllers\DataBaseController;
         $paymentTypes = DataBaseController::getPaymentTypes();
         $shools = DataBaseController::getShools();
 
