@@ -34,7 +34,7 @@ $(document).ready(function(){
         });
     });
     $("form").submit(function(){
-        // console.log("send submit");
+        console.log("send submit");
         $.post('submitpreenroll',{
                 guardianName : $("#guardianName").val(),
                 guardianCPF : $("#guardianCPF").val(), 

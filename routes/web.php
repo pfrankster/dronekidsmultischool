@@ -23,8 +23,8 @@ Route::get('/preenrollmentTeste', function () {
 });
 
 
-// Route::get('preenrollment', 'PreEnrollmentController@preEnrollmentValidation');
-Route::post('preenrollment', 'PreEnrollmentController@preEnrollmentValidationPost');
+Route::get('peValidate/form', 'PreEnrollmentController@peValidation');
+Route::post('peValidate', 'PreEnrollmentController@peValidationPost');
 
 
 Route::get('preenrollment/test', 'TmpSectionController@testfunction');

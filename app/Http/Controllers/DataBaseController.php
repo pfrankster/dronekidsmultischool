@@ -44,8 +44,19 @@ class DataBaseController extends Controller
     }
 
     public function submitPreEnrollment(Request $request){
-        $conn = DB::connection('mysql');
-        return $conn->table('pre_enrollments')->insertGetId([
+        DB::table('pre_enrollments')->insertGetId([
+            // 'guardianName' => "teste12", 
+            // 'guardianCPF' => "testeCPF",
+            // 'guardianPhone' => "(00) 0000-0000",
+            // 'address' => "testeAddress",
+            // 'state' => "testeState",
+            // 'city' => "testeCity",
+            // 'email' => "teste@teste.com",
+            // 'guardianRelation' => "TestRelatin",
+            // 'studentName' => "Student",
+            // 'studentGender' => "male",
+            // 'sectionId' => 1,
+            // 'paymentTypeId' => 1,
             'guardianName' => $request->guardianName, 
             'guardianCPF' => $request->guardianCPF,
             'guardianPhone' => $request->guardianPhone,
@@ -56,12 +67,12 @@ class DataBaseController extends Controller
             'guardianRelation' => $request->guardianRelation,
             'studentName' => $request->studentName,
             'studentGender' => $request->studentGender,
-            'sectionId' => $request->sectionId,
-            'paymentTypeId' => $request->paymantType]
+            'sectionId' => (int)$request->sectionId,
+            'paymentTypeId' => (int)$request->paymantType
+            ]
         );
 
         
         // return response()->json(["Complite "]);
     }
-    
 }

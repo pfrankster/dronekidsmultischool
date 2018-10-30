@@ -9,25 +9,25 @@ use App\Http\Controllers\Controller;
 
 class PreEnrollmentController extends Controller
 {
-    public function preEnrollmentValidation()
+    public function peValidation()
     {
     	return view('preenrollment');
     }
 
-    public function preEnrollmentValidationPost(Request $request)
+    public function peValidationPost(Request $request)
     {
-    	$this->validate($request,[
-				'guardianName' => 'required|max:255',
-				'guardianCPF' => 'required|max:18',
+    	$validatedData = $this->validate($request,[
+				'guardianName' => 'bail|required|max:255',
+				'guardianCPF' => 'bail|required|max:18',
 				//regex:/^\(([0-9]{2})\)\s*([0-9]{4,5})[- ]*[0-9]{4}$/i
-				'guardianPhone' => 'required|max:19',
-				'guardianRelation' => 'required',
-				'address' => 'required|max:100',
-				'state' => 'required|max:100',
-				'city' => 'required|max:100',
-				'email' => 'required|email|max:255',
-				'studentName' => 'required|max:255',
-				'studentGender' => 'required',
+				'guardianPhone' => 'bail|required|max:19',
+				'guardianRelation' => 'bail|required',
+				'address' => 'bail|required|max:100',
+				'state' => 'bail|required|max:100',
+				'city' => 'bail|required|max:100',
+				'email' => 'bail|required|email|max:255',
+				'studentName' => 'bail|required|max:255',
+				'studentGender' => 'bail|required',
 				// 'pmSchool' => 'required',
 				// 'pmClass' => 'required',
 				// 'pmSection' => 'required',
