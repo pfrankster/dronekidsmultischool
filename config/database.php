@@ -37,7 +37,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'db_teste'),
+            'database' => env('DB_DATABASE', 'dronekid_labtest2'),
             'username' => env('DB_USERNAME', 'dronekid_lbtest2'),
             'password' => env('DB_PASSWORD', 'DKS#test#18'),
             'unix_socket' => env('DB_SOCKET', ''),
