@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
+            <!-- Page title -->
             <div class="x_title">
                 <h3 class="head-title"><i class="fa fa-paw"></i><small> <?php echo $this->lang->line('manage_guardian'); ?></small></h3>
                 <ul class="nav navbar-right panel_toolbox">
@@ -8,6 +9,7 @@
                 </ul>
                 <div class="clearfix"></div>
             </div>
+            <!-- Page Contents -->
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     
@@ -28,8 +30,9 @@
                         <?php } ?> 
                     </ul>
                     <br/>
-                    
+                     <!-- Tab content -->
                     <div class="tab-content">
+                        <!-- Tab list elements -->
                         <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_guardian_list" >
                             <div class="x_content">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -84,7 +87,7 @@
                             </table>
                             </div>
                         </div>
-
+                        <!-- Tab Add elements -->
                         <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_guardian">
                             <div class="x_content"> 
                                <?php echo form_open_multipart(site_url('guardian/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
@@ -206,7 +209,8 @@
                                 <?php echo form_close(); ?>
                             </div>
                         </div>  
-
+                        
+                        <!-- Tab Edit elements -->
                         <?php if(isset($edit)){ ?>
                         
                         <div class="tab-pane fade in active" id="tab_edit_guardian">
@@ -331,7 +335,7 @@
                         </div>  
                         
                         <?php } ?>
-                        
+                        <!-- Tab Details elements -->
                         <?php if(isset($detail)){ ?>
                         
                         <div class="tab-pane fade in active" id="tab_view_guardian">

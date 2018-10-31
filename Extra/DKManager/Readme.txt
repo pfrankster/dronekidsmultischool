@@ -2,7 +2,11 @@ Main Update:
 =========
  -Path: 	application/config/custom.php
  -Description:	Responsible for the rules of restriction, who can acesse what.
- Status: [Ok]
+ Status: [Ok][On Site]
+ =========
+ -Path: 	application/view/layout/left-side.php
+ -Description:	Responsible for the left site menu
+ Status: [Ok][On Site]
 =========
  -Path:		application/modules/preenroll/controllers/Preenroll.php
  -Description:	Php class managin function fot the preenroll page
@@ -20,11 +24,11 @@ Language Update:
 =========
  -Path:		application/language/english/sms_lang.php
  -Description:	Responsible for the words exemption in correct idiom.
- Status: [Ok]
+ Status: [Ok][On Site]
 =========
  -Path:		application/language/pt-br/sms_lang.php
  -Description:	New idiom for the system (creating)
- Status: [Working on it]
+ Status: [Working on it][On Site]
 =========
  -Path:		application/core/MY_Controller.php
  -Description: it have reference to the language pack.
