@@ -37,8 +37,57 @@
                         <br/>
                         <!-- Tab content -->
                         <div class="tab-content">
-                            <!-- Tab list elements -->
+                            <!-- Tab List elements -->
                             <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_preenroll_list" >
+                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                <!-- Table head -->
+                                <thead>
+                                    <tr>
+                                        <th><?php echo $this->lang->line('sl_no'); ?></th>
+                                        <th><?php echo $this->lang->line('guardian_name'); ?></th>
+                                        <th><?php echo $this->lang->line('guardian_cpf'); ?></th>
+                                        <th><?php echo $this->lang->line('phone'); ?></th>
+                                        <th><?php echo $this->lang->line('address'); ?></th>
+                                        <th><?php echo $this->lang->line('state'); ?></th>
+                                        <th><?php echo $this->lang->line('city'); ?></th>
+                                        <th><?php echo $this->lang->line('email'); ?></th>
+                                        <th><?php echo $this->lang->line('guardian_relation'); ?></th>
+                                        <th><?php echo $this->lang->line('student_name'); ?></th>
+                                        <th><?php echo $this->lang->line('student_gender'); ?></th>
+                                        <th><?php echo $this->lang->line('school'); ?></th>
+                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('section'); ?></th>
+                                        <th><?php echo $this->lang->line('payment_type'); ?></th>
+                                        <th><?php echo $this->lang->line('status'); ?></th>
+                                        <th><?php echo $this->lang->line('action'); ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php  $count = 1; if(isset($preenrolls) && !empty($preenrolls)){ ?>
+                                        <?php foreach($preenrolls as $obj){ ?>
+                                            <tr>
+                                                <td><?php echo $count++; ?></td>
+                                                <td><?php echo $obj->guardianName; ?></td>
+                                                <td><?php echo $obj->guardianCPF; ?></td>
+                                                <td><?php echo $obj->guardianPhone; ?></td>
+                                                <td><?php echo $obj->address; ?></td>
+                                                <td><?php echo $obj->state; ?></td>
+                                                <td><?php echo $obj->city; ?></td>
+                                                <td><?php echo $obj->email; ?></td>
+                                                <td><?php echo $obj->guardianRelation; ?></td>
+                                                <td><?php echo $obj->studentName; ?></td>
+                                                <td><?php echo $obj->studentGender; ?></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><?php echo $obj->sectionId; ?></td>
+                                                <td><?php echo $obj->paymentType; ?></td>
+                                                <td><?php echo $obj->status; ?></td>
+                                                <td></td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                             </div>
                             <!-- Tab Add elements -->
                             <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_preenroll">
