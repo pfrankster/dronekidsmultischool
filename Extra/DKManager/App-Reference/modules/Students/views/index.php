@@ -622,6 +622,7 @@
                         </div> 
                         <?php } ?>
                         
+                        <!-- Tab Details elements -->
                         <?php if(isset($detail)){ ?>
                         
                         <div class="tab-pane fade in active" id="tab_view_student">
