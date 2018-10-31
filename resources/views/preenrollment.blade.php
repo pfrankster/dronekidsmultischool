@@ -163,7 +163,7 @@
                             <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
                             <?php 
                                 foreach($shools as $shool){
-                                    echo "<option value=" . $shool->id . ">" . $shool->nome ."</option>";
+                                    echo "<option value=" . $shool->id . ">" . $shool->school_name ."</option>";
                                 } 
                             ?>
                             </select>

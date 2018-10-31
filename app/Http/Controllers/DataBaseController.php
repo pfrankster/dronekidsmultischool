@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class DataBaseController extends Controller
 {
+    private static $tSchoolName = 'schools';
+    private static $tSchoolIdName = 'school_id';
+    private static $tClassName = 'classes';
+    private static $tSectionName = 'sections';
+    private static $tPaymantTypeName = 'paymant_types';
+    private static $tPreEnrollmentName = 'pre_enrollments';
     static function getShools(){
-        $conn = DB::connection('droneKids');
-        return DB::connection('droneKids')->table('escolas')->get();
+        return DB::connection('droneKids')->table(self::$tSchoolName)->get();
         // return [(object) ["id"=>1,"nome"=>"Boleto"],(object) ["id"=>2,"nome"=>"Cartão"]];
         // return DB::table('tmp_schools')->get();
         
@@ -24,7 +29,7 @@ class DataBaseController extends Controller
 
     public function getClassesBy(Request $request){
         $conn = DB::connection('droneKids');
-        $result =  $conn->table('cursos')->where("escolaid",$request->schoolId)->get();
+        $result =  $conn->table( self::$tClassName)->where(self::$tSchoolIdName,$request->schoolId)->get();
         // $classId = DB::table('tmp_sections')->where('schoolId',$request->schoolId)->pluck('classId');
         // $result = DB::table('tmp_classes')->whereIn("id",$classId)->get();
         // return response()->json(['ids' => $classId]);
@@ -32,19 +37,19 @@ class DataBaseController extends Controller
     }
     public function getSectionsBy(Request $request){
         $conn = DB::connection('droneKids');
-        $result =  $conn->table('turmas')->where("idescola",$request->schoolId)->get();
+        $result =  $conn->table(self::$tSectionName)->where(self::$tSchoolIdName,$request->schoolId)->get();
         return response()->json($result);
         // return response()->json(DB::table('tmp_sections')->where([['schoolId',$request->schoolId],['classId',$request->classId]])->get());
     }
 
     static function getPaymentTypes(){
         $conn = DB::connection('mysql');
-        return $conn->table('paymant_types')->get();
+        return $conn->table(self::$tPaymantTypeName)->get();
         // return [(object) ["id"=>1,"name"=>"Boleto"],(object) ["id"=>2,"name"=>"Cartão"]];
     }
 
     public function submitPreEnrollment(Request $request){
-        DB::table('pre_enrollments')->insertGetId([
+        DB::table(self::$tPreEnrollmentName)->insertGetId([
             // 'guardianName' => "teste12", 
             // 'guardianCPF' => "testeCPF",
             // 'guardianPhone' => "(00) 0000-0000",

@@ -52,7 +52,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'dronekid_buyers'),
+            'database' => env('DB_DATABASE', 'dronekid_gms'),
             // 'username' => env('DB_USERNAME', 'Dronekid'),
             // 'password' => env('DB_PASSWORD', 'dronekid'),
             'username' => env('DB_USERNAME', 'dronekid'),

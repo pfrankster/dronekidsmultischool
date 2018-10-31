@@ -16,7 +16,7 @@ $(document).ready(function(){
                 $('#peClass')
                 .append($("<option></option>")
                 .attr("value",data.id)
-                .text(data.nome));
+                .text(data.name));
             });                    
         });
     });
@@ -29,7 +29,7 @@ $(document).ready(function(){
                 $('#peSection')
                 .append($("<option></option>")
                 .attr("value",data.id)
-                .text(data.deschorario));
+                .text(data.name));
             });                    
         });
     });
