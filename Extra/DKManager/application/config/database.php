@@ -102,28 +102,3 @@ $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "dronekid_usrgms";
 $db['default']['password'] = "LtYK1K7OCGYd9E08";
 $db['default']['database'] = "dronekid_gms";
-
-
-$db['preenroll'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-
-$db['preenroll']['hostname'] = "localhost";
-$db['preenroll']['username'] = "dronekid_lbtest2";
-$db['preenroll']['password'] = "DKS#test#18";
-$db['preenroll']['database'] = "dronekid_labtest2";

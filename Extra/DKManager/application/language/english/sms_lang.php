@@ -566,3 +566,5 @@ $lang['city'] = "City"; // pe Added
 $lang['student_name'] = "Student Name"; // pe Added
 $lang['student_gender'] = "Student Gender"; // pe Added
 $lang['payment_type'] = "Payment Type"; // pe Added
+$lang['approval'] = "Approval"; // pe Added
+$lang['confirm_approval'] = "Are you sure you want to approve this"; // pe Added
