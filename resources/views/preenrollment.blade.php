@@ -120,8 +120,8 @@
                                 <option value="sister">Sister</option>
                                 <option value="brother">Brother</option>
                                 <option value="uncle">Uncle</option>
-                                <option value="maternalUncle">Maternal Uncle</option>
-                                <option value="otherRelative">Other Relative</option>
+                                <option value="maternal_uncle">Maternal Uncle</option>
+                                <option value="other_relative">Other Relative</option>
                             </select>
                             <span class="text-danger">{{ $errors->first('guardianRelation') }}</span>
                         </div>
