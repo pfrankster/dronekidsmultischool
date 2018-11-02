@@ -1,6 +1,5 @@
-<?php // pe added fix?>
 <?php
-
+// pe added
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -13,7 +12,7 @@ class Preenroll_Model extends MY_Model {
     
     public function get_preenroll_list(){
         
-        $this->db->select('PE.*, SH.id AS school_id, SH.school_name AS school_name, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status');
+        $this->db->select('PE.*, SH.id AS school_id, SH.school_name AS school_name, CL.id AS class_id, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status');
         $this->db->from('pre_enrollments AS PE');
         $this->db->join('sections AS SC', 'SC.id = PE.section_id', 'left');
         $this->db->join('paymant_types AS PY', 'PY.id = PE.payment_type_id', 'left');
@@ -30,7 +29,7 @@ class Preenroll_Model extends MY_Model {
     
     public function get_single_preenroll($id){
       
-        $this->db->select('PE.*, SH.id AS school_id,SH.school_name AS school_name, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status');
+        $this->db->select('PE.*, SH.id AS school_id,SH.school_name AS school_name, CL.id AS class_id, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status');
         $this->db->from('pre_enrollments AS PE');
         $this->db->join('sections AS SC', 'SC.id = PE.section_id', 'left');
         $this->db->join('paymant_types AS PY', 'PY.id = PE.payment_type_id', 'left');
@@ -60,5 +59,5 @@ class Preenroll_Model extends MY_Model {
         $this->db->select('PE.*');
         $this->db->from('pe_status AS PE');
         return $this->db->get()->result();
-    }
+    }    
 }

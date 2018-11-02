@@ -19,22 +19,13 @@ class Preenroll extends MY_Controller {
 
     function __construct() {
         parent::__construct();      
-        
         $this->load->model('Preenroll_Model', 'preenroll', true);
-        // check running session
-        if(!$this->academic_year_id){
-            error($this->lang->line('academic_year_setting'));
-            redirect('setting');
-        }         
     }
 
-    
-    
     /*****************Function index**********************************
     * @type            : Function
     * @function name   : index
-    * @description     : Load "Preenroll List" user interface                 
-    *                    with class wise listing    
+    * @description     : Load "Preenroll List" user interface  
     * @param           : $id integer value
     * @return          : null 
     * ********************************************************** */
@@ -43,18 +34,13 @@ class Preenroll extends MY_Controller {
         check_permission(VIEW);
         
         $this->data['preenrolls'] = $this->preenroll->get_preenroll_list();
-        //$this->data['roles'] = $this->preenroll->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
+        $this->data['payment_types'] = $this->preenroll->get_list('paymant_types', array(), '', '', '', 'id', 'ASC');
+        $this->data['status_types'] = $this->preenroll->get_list('pe_status', array(), '', '', '', 'id', 'ASC');
+
+        $condition = array();
+        $condition['status'] = 1;
+        $this->data['schools'] = $this->preenroll->get_list('schools', $condition, '','', '', 'id', 'ASC');
         
-        // $condition = array();
-        // $condition['status'] = 1;        
-        // if($this->session->userdata('role_id') != SUPER_ADMIN){            
-        //     $condition['school_id'] = $this->session->userdata('school_id');
-        //     $this->data['classes'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        //     $this->data['guardians'] = $this->preenroll->get_list('guardians', $condition, '','', '', 'id', 'ASC');
-        // }
-        // $this->data['class_list'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        
-        // $this->data['schools'] = $this->schools;
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_preenroll') . ' | ' . SMS);
         $this->layout->view('preenroll/index', $this->data);
@@ -71,52 +57,40 @@ class Preenroll extends MY_Controller {
     * ********************************************************** */
     public function add() {
 
-        // check_permission(ADD);
+        check_permission(ADD);
 
-        // if ($_POST) {
-        //     $this->_prepare_preenroll_validation();
-        //     if ($this->form_validation->run() === TRUE) {
-        //         $data = $this->_get_posted_preenroll_data();
+        if ($_POST) {
+            $this->_prepare_preenroll_validation();
+            if ($this->form_validation->run() === TRUE) {
+                $data = $this->_get_posted_preenroll_data();
 
-        //         $insert_id = $this->preenroll->insert('students', $data);
+                $insert_id = $this->preenroll->insert('pre_enrollments', $data);
 
-        //         if ($insert_id) {
-        //             $this->__insert_enrollment($insert_id);
-        //             success($this->lang->line('insert_success'));
-        //             redirect('preenroll/index/'.$this->input->post('class_id'));
-        //         } else {
-        //             error($this->lang->line('insert_failed'));
-        //             redirect('preenroll/add/'.$this->input->post('class_id'));
-        //         }
-        //     } else {
+                if ($insert_id) {
+                    // $this->__insert_enrollment($insert_id);
+                    success($this->lang->line('insert_success'));
+                    redirect('preenroll/index/'.$this->input->post('id'));
+                } else {
+                    error($this->lang->line('insert_failed'));
+                    redirect('preenroll/add/'.$this->input->post('id'));
+                }
+            } else {
 
-        //         $this->data['post'] = $_POST;
-        //     }
-        // }
-        
-        // $class_id = $this->uri->segment(4);
-        // if(!$class_id){
-        //   $class_id = $this->input->post('class_id');
-        // }
+                $this->data['post'] = $_POST;
+            }
+        }
 
-        // $this->data['class_id'] = $class_id;
-        // $this->data['students'] = $this->preenroll->get_preenroll_list($class_id);
-        // $this->data['roles'] = $this->preenroll->get_list('roles', array('status' => 1), '', '', '', 'id', 'ASC');
-        
-         
-        // $condition = array();
-        // $condition['status'] = 1;        
-        // if($this->session->userdata('role_id') != SUPER_ADMIN){            
-        //     $condition['school_id'] = $this->session->userdata('school_id');
-        //     $this->data['classes'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        //     $this->data['guardians'] = $this->preenroll->get_list('guardians', $condition, '','', '', 'id', 'ASC');
-        // }
-        // $this->data['class_list'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        
-        // $this->data['schools'] = $this->schools;
-        // $this->data['add'] = TRUE;
-        // $this->layout->title($this->lang->line('add') . ' ' . $this->lang->line('preenroll') . ' | ' . SMS);
-        // $this->layout->view('preenroll/index', $this->data);
+        $this->data['preenrolls'] = $this->preenroll->get_preenroll_list();
+        $this->data['payment_types'] = $this->preenroll->get_list('paymant_types', array(), '', '', '', 'id', 'ASC');
+        $this->data['status_types'] = $this->preenroll->get_list('pe_status', array(), '', '', '', 'id', 'ASC');
+
+        $condition = array();
+        $condition['status'] = 1;
+        $this->data['schools'] = $this->preenroll->get_list('schools', $condition, '','', '', 'id', 'ASC');
+ 
+        $this->data['add'] = TRUE;
+        $this->layout->title($this->lang->line('add') . ' ' . $this->lang->line('preenroll') . ' | ' . SMS);
+        $this->layout->view('preenroll/index', $this->data);
     }
 
         
@@ -132,11 +106,6 @@ class Preenroll extends MY_Controller {
     public function edit($id = null) {
 
         check_permission(EDIT);
-
-        if(!is_numeric($id)){
-            error($this->lang->line('unexpected_error'));
-            redirect('preenroll/index');     
-        }
         
         if ($_POST) {
             $this->_prepare_preenroll_validation();
@@ -146,12 +115,13 @@ class Preenroll extends MY_Controller {
 
                 if ($updated) {
                     success($this->lang->line('update_success'));
-                    redirect('preenroll/index/'.$this->input->post('class_id'));
+                    redirect('preenroll/index');
                 } else {
                     error($this->lang->line('update_failed'));
                     redirect('preenroll/edit/' . $this->input->post('id'));
                 }
             } else {
+                
                 $this->data['preenroll'] = $this->preenroll->get_single_preenroll($this->input->post('id'));
             }
         }
@@ -163,22 +133,15 @@ class Preenroll extends MY_Controller {
                 redirect('preenroll/index');
             }
         }
-        $this->data['payment_types'] = $this->preenroll->get_payment_types();
-        $this->data['status_types'] = $this->preenroll->get_status_types();
         
+        $this->data['preenrolls'] = $this->preenroll->get_preenroll_list();
+        $this->data['payment_types'] = $this->preenroll->get_list('paymant_types', array(), '', '', '', 'id', 'ASC');
+        $this->data['status_types'] = $this->preenroll->get_list('pe_status', array(), '', '', '', 'id', 'ASC');
 
-          
-        // $condition = array();
-        // $condition['status'] = 1;        
-        // if($this->session->userdata('role_id') != SUPER_ADMIN){            
-        //     $condition['school_id'] = $this->session->userdata('school_id');
-        //     $this->data['classes'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        //     $this->data['guardians'] = $this->preenroll->get_list('guardians', $condition, '','', '', 'id', 'ASC');
-        // }
-        // $this->data['class_list'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        // $this->data['school_id'] = $this->data['preenroll']->school_id;
+        $condition = array();
+        $condition['status'] = 1;
+        $this->data['schools'] = $this->preenroll->get_list('schools', $condition, '','', '', 'id', 'ASC');
         
-        // $this->data['schools'] = $this->schools;
         $this->data['edit'] = TRUE;
         $this->layout->title($this->lang->line('edit') . ' ' . $this->lang->line('preenroll') . ' | ' . SMS);
         $this->layout->view('preenroll/index', $this->data);
@@ -204,14 +167,6 @@ class Preenroll extends MY_Controller {
         }
         
         $this->data['preenroll'] = $this->preenroll->get_single_preenroll($preenroll_id);        
-
-        // $condition = array();
-        // $condition['status'] = 1;        
-        // if($this->session->userdata('role_id') != SUPER_ADMIN){            
-        //     $condition['school_id'] = $this->session->userdata('school_id');
-        //     $this->data['classes'] = $this->preenroll->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        //     $this->data['guardians'] = $this->preenroll->get_list('guardians', $condition, '','', '', 'id', 'ASC');
-        // }
     
         $this->data['detail'] = TRUE;
         $this->layout->title($this->lang->line('view') . ' ' . $this->lang->line('preenroll') . ' | ' . SMS);
@@ -244,7 +199,7 @@ class Preenroll extends MY_Controller {
         // $this->form_validation->set_rules('school_id', $this->lang->line('school'), 'trim|required');
         // $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
         // $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');
-        // $this->form_validation->set_rules('payment_type_id', $this->lang->line('payment_type'), 'trim|required');
+        $this->form_validation->set_rules('payment_type_id', $this->lang->line('payment_type'), 'trim|required');
         $this->form_validation->set_rules('status_id', $this->lang->line('status'), 'trim|required');
 
         
@@ -279,29 +234,6 @@ class Preenroll extends MY_Controller {
         //     return TRUE;
         // }
     }
-                
-    /*****************Function photo**********************************
-    * @type            : Function
-    * @function name   : photo
-    * @description     : validate preenroll profile photo                 
-    *                       
-    * @param           : null
-    * @return          : boolean true/false 
-    * ********************************************************** */
-    public function photo() {
-        // if ($_FILES['photo']['name']) {
-        //     $name = $_FILES['photo']['name'];
-        //     $arr = explode('.', $name);
-        //     $ext = end($arr);
-        //     if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'gif') {
-        //         return TRUE;
-        //     } else {
-        //         $this->form_validation->set_message('photo', $this->lang->line('select_valid_file_format'));
-        //         return FALSE;
-        //     }
-        // }
-    }
-
        
     /*****************Function _get_posted_preenroll_data**********************************
     * @type            : Function
@@ -325,7 +257,7 @@ class Preenroll extends MY_Controller {
         $items[] = 'email';
         $items[] = 'student_name';
         $items[] = 'student_gender';
-        // $items[] = 'section_id';
+        $items[] = 'section_id';
         $items[] = 'payment_type_id';
         $items[] = 'status_id';
 
@@ -349,52 +281,6 @@ class Preenroll extends MY_Controller {
         return $data;
     }
 
-           
-    /*****************Function _upload_photo**********************************
-    * @type            : Function
-    * @function name   : _upload_photo
-    * @description     : process to upload preenroll profile photo in the server                  
-    *                     and return photo file name  
-    * @param           : null
-    * @return          : $return_photo string value 
-    * ********************************************************** */
-    private function _upload_photo() {
-
-        // $prev_photo = $this->input->post('prev_photo');
-        // $photo = $_FILES['photo']['name'];
-        // $photo_type = $_FILES['photo']['type'];
-        // $return_photo = '';
-        // if ($photo != "") {
-        //     if ($photo_type == 'image/jpeg' || $photo_type == 'image/pjpeg' ||
-        //             $photo_type == 'image/jpg' || $photo_type == 'image/png' ||
-        //             $photo_type == 'image/x-png' || $photo_type == 'image/gif') {
-
-        //         $destination = 'assets/uploads/preenroll-photo/';
-
-        //         $file_type = explode(".", $photo);
-        //         $extension = strtolower($file_type[count($file_type) - 1]);
-        //         $photo_path = 'photo-' . time() . '-sms.' . $extension;
-
-        //         move_uploaded_file($_FILES['photo']['tmp_name'], $destination . $photo_path);
-
-        //         // need to unlink previous photo
-        //         if ($prev_photo != "") {
-        //             if (file_exists($destination . $prev_photo)) {
-        //                 @unlink($destination . $prev_photo);
-        //             }
-        //         }
-
-        //         $return_photo = $photo_path;
-        //     }
-        // } else {
-        //     $return_photo = $prev_photo;
-        // }
-
-        // return $return_photo;
-    }
-
-        
-    
     /*****************Function delete**********************************
     * @type            : Function
     * @function name   : delete
@@ -427,31 +313,6 @@ class Preenroll extends MY_Controller {
         redirect('preenroll/index/');
     }
 
-        
-    /*****************Function __insert_enrollment**********************************
-    * @type            : Function
-    * @function name   : __insert_enrollment
-    * @description     : save preenroll info to enrollment while create a new preenroll                  
-    * @param           : $insert_id integer value
-    * @return          : null 
-    * ********************************************************** */
-    private function __insert_enrollment($insert_id) {
-        // $data = array();
-        // $data['student_id'] = $insert_id;
-        // $data['school_id'] = $this->input->post('school_id');
-        // $data['class_id'] = $this->input->post('class_id');
-        // $data['section_id'] = $this->input->post('section_id');
-        // $data['academic_year_id'] = $this->academic_year_id;
-        // $data['roll_no'] = $this->input->post('roll_no');
-        // $data['created_at'] = date('Y-m-d H:i:s');
-        // $data['created_by'] = logged_in_user_id();
-        // $data['status'] = 1;
-        // $this->db->insert('enrollments', $data);
-    }
-
-    
-
-
     /*****************Function approval**********************************
     * @type            : Function
     * @function name   : approval
@@ -468,20 +329,6 @@ class Preenroll extends MY_Controller {
              error($this->lang->line('unexpected_error'));
               redirect('preenroll/index');
         }
-        
-        // $data = array();
-            
-        
-        // $updated = $this->preenroll->update('pre_enrollments', $data, array('id' => $this->input->post('id')));
-
-        // if ($updated) {
-        //     success($this->lang->line('update_success'));
-        //     redirect('preenroll/index/'.$this->input->post('class_id'));
-        // } else {
-        //     error($this->lang->line('update_failed'));
-        //     redirect('preenroll/edit/' . $this->input->post('id'));
-        // }
-            
         
         $preenroll = $this->preenroll->get_single('pre_enrollments', array('id' => $id));
         if (!empty($preenroll)) {

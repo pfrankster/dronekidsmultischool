@@ -95,7 +95,9 @@
                             </table>
                             </div>
                         </div>
-
+                        <!-- ============================================== -->
+                        <!-- Tab Add elements -->
+                        <!-- ============================================== -->
                         <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_teacher">
                             <div class="x_content"> 
                                <?php echo form_open_multipart(site_url('teacher/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
@@ -294,7 +296,9 @@
                                 <?php echo form_close(); ?>
                             </div>
                         </div>  
-
+                        <!-- ============================================== -->
+                        <!-- Tab Edit elements -->
+                        <!-- ============================================== -->
                         <?php if(isset($edit)){ ?>
                         
                         <div class="tab-pane fade in active" id="tab_edit_teacher">
