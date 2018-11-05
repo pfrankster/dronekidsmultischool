@@ -3,258 +3,216 @@
 
 @section('title', 'Laravel')
 @section('content')
-    <div class="container">
-        <?php
-        use App\Http\Controllers\DataBaseController;
-        $paymentTypes = DataBaseController::getPaymentTypes();
-        $shools = DataBaseController::getShools();
-        $lPrefixPlacehold = "Informe o ";
-        $lSelection = "Selecione um opção";
-        $lGroupGuardian = "Responsavel";
-        $lGuardianName = "Nome Completo";
-        $lGuardianCPF = "CPF";
-        $lGuardianPhone = "Telephone";
-        $lAdress = "Endereço";
-        $lState = "Estado";
-        $lCity = "Cidade";
-        $lEmail = "E-mail";
-        $lRelation = "Relacionamento com Estudante";
-        $lGroupStudent = "Estudante";
-        $lStudentName = "Nome Completo";
-        $lStudentGender = "Genero";
-        $lGroupClass = "Escola";
-        $lSchool = "Escola";
-        $lClass = "Curso";
-        $lSection = "Turma";
-        $lPaymentType = "Tipo de Pagamento";
-        $lAcceptTerms = "Aceito os termos do";
-        $lContract = "Contrato";
-        $lSumbit  = "Enviar";
-        ?>
-        <div class="content">
-            <div class="title">Matricula</div>
-            <form method="POST" action="peValidate" autocomplete="ON">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.
-                    <br/>
-                    <ul>
-                        @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+<?php
+        use App\Http\Controllers\DBController;
+        $paymentTypes = DBController::get_payment_types();
+        $shools = DBController::get_shools();
+?>
+<div class= "container shadow p-3">
+<!-- <label for="teste">teste</label> -->
+    <!-- ============================================== -->
+    <!-- Pre Enrollment Form -->
+    <!-- ============================================== -->
+    <div class="title">@lang('interface.title')</div>    
+    <form method="POST" action="index.php/pvalidation" autocomplete="ON">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.
+                <br/>
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div id="gGuardian" class= "form-group  bg-info rounded  p-2" >
+            <div class= "input-group justify-content-center" >
+                <label for="gGuardian" class="">@lang('interface.guardian')</label>
+            </div>
+            <div class="row">
+                <!-- ======= Guardian Name ======= -->
+                <div class= "col-md-6 input-group my-2" >
+                    <div class= "input-group-prepend " >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.guardian_name')</span>
+                    </div>
+                    <input type="text" id="guardian_name" name="guardian_name" class="form-control" placeholder="@lang('interface.guardian_name')" value="{{ old('guardian_name') }}">
+                    <span class="text-danger">{{ $errors->first('guardian_name') }}</span>
                 </div>
-            @endif
-            <label for="gGuardian"><?php echo $lGroupGuardian ?></label>
-            <div id="gGuardian">
-                
-                <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('guardianName') ? 'has-error' : '' }}">
-                            <label for="guardianName"><?php echo $lGuardianName ?></label>
-                            <input type="text" id="guardianName" name="guardianName" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lGuardianName."'" ?> value="{{ old('firstname') }}">
-                            <span class="text-danger">{{ $errors->first('guardianName') }}</span>
-                        </div>
+                <!-- ======= CPF ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('CPF') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.cpf')</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('guardianCPF') ? 'has-error' : '' }}">
-                            <label for="guardianCPF"><?php echo $lGuardianCPF ?></label>
-                            <input type="text" id="guardianCPF" name="guardianCPF" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lGuardianCPF."'" ?> value="{{ old('guardianCPF') }}">
-                            <span class="text-danger">{{ $errors->first('guardianCPF') }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('guardianPhone') ? 'has-error' : '' }}">
-                            <label for="guardianPhone"><?php echo $lGuardianPhone ?></label>
-                            <input type="tel" id="guardianPhone" name="guardianPhone" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lGuardianPhone."'" ?> value="{{ old('guardianPhone') }}">
-                            <!-- <input id="guardianPhone" type="tel" name="guardianPhone" placeholder="(XX) XXX-XXXX" pattern="\(\d{3}\) \d{3}\-\d{4}" class="masked form-control" value="{{ old('guardianPhone') }}"> -->
-                            <span class="text-danger">{{ $errors->first('guardianPhone') }}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
-                            <label for="address"><?php echo $lAdress ?></label>
-                            <input type="text" id="address" name="address" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lAdress."'" ?> value="{{ old('address') }}">
-                            <span class="text-danger">{{ $errors->first('address') }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('state') ? 'has-error' : '' }}">
-                            <label for="state"><?php echo $lState ?></label>
-                            <input type="text" id="state" name="state" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lState."'" ?> value="{{ old('state') }}">
-                            <span class="text-danger">{{ $errors->first('state') }}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('city') ? 'has-error' : '' }}">
-                            <label for="city"><?php echo $lCity ?></label>
-                            <input type="text" id="city" name="city" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lCity."'" ?> value="{{ old('city') }}">
-                            <span class="text-danger">{{ $errors->first('city') }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                            <label for="email"><?php echo $lEmail ?></label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lEmail."'" ?> value="{{ old('email') }}"pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('guardianRelation') ? 'has-error' : '' }}">
-                            <label for="guardianRelation"><?php echo $lRelation ?></label>
-                            <select id="guardianRelation" name="guardianRelation" class="form-control" value="{{ old('guardianRelation') }}">
-                                <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
-                                <option value="father">Father</option>
-                                <option value="mother">Mother</option>
-                                <option value="sister">Sister</option>
-                                <option value="brother">Brother</option>
-                                <option value="uncle">Uncle</option>
-                                <option value="maternal_uncle">Maternal Uncle</option>
-                                <option value="other_relative">Other Relative</option>
-                            </select>
-                            <span class="text-danger">{{ $errors->first('guardianRelation') }}</span>
-                        </div>
-                    </div>
+                    <input type="text" id="cpf" name="cpf" class="form-control" placeholder="@lang('interface.cpf')" value="{{ old('cpf') }}">
                 </div>
             </div>
-            <label for="gStudent"><?php echo $lGroupStudent ?></label>
-            <div id="gStudent">
-                <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('studentName') ? 'has-error' : '' }}">
-                            <label for="studentName"><?php echo $lStudentName ?></label>
-                            <input type="text" id="studentName" name="studentName" class="form-control" placeholder=<?php echo "'".$lPrefixPlacehold.$lStudentName."'" ?> value="{{ old('studentName') }}">
-                            <span class="text-danger">{{ $errors->first('studentName') }}</span>
-                        </div>
+            <div class="row">
+                <!-- ======= E-mail ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('email') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.email')</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('studentGender') ? 'has-error' : '' }}">
-                            <label for="studentGender"><?php echo $lStudentGender ?></label>
-                            <select id="studentGender" name="studentGender" class="form-control" value="{{ old('studentGender') }}">
-                                <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
-                                <option value="male">Homem</option>
-                                <option value="female">Mulher</option>
-                            </select>
-                            <span class="text-danger">{{ $errors->first('studentGender') }}</span>
-                        </div>
-                    </div>
+                <input type="email" id="email" name="email" class="form-control" placeholder="@lang('interface.email')" value="{{ old('email') }}"pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                 </div>
-            </div> 
-            <label for="gClass"><?php echo $lGroupClass ?></label>
-            <div id="gClass">
-                <div class="row">
-                    
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('peSchool') ? 'has-error' : '' }}">
-                            <label for="peSchool"><?php echo $lSchool ?></label>
-                            <select id="peSchool" name="peSchool" class="form-control" value="{{ old('peSchool') }}">
-                            <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
-                            <?php 
-                                foreach($shools as $shool){
-                                    echo "<option value=" . $shool->id . ">" . $shool->school_name ."</option>";
-                                } 
-                            ?>
-                            </select>
-                            <span class="text-danger">{{ $errors->first('peSchool') }}</span>
-                        </div>
+                <!-- ======= Phone ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('phone') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.phone')</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('peClass') ? 'has-error' : '' }}">
-                            <label for="peClass"><?php echo $lClass ?></label>
-                            <select id="peClass" name="peClass" class="form-control" value="{{ old('peClass') }}">
-                            <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
-                            </select>
-                            <span class="text-danger">{{ $errors->first('peClass') }}</span>
-                        </div>
-                    </div>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="@lang('interface.phone')"value="{{ old('phone') }}">
                 </div>
-                <div class="row">
-                    <?php
+            </div>
+            <div class="row">
+                <!-- ======= Address ======= -->
+                <div class= "col-md-6  input-group my-2 {{ $errors->has('address') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.address')</span>
+                    </div>
+                <input type="text" id="address" name="address" class="form-control" placeholder="@lang('interface.address')" value="{{ old('address') }}">
+                </div>
+                <!-- ======= State ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('state') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.state')</span>
+                    </div>
+                <input type="text" id="state" name="state" class="form-control" placeholder="@lang('interface.state')" value="{{ old('state') }}">
+                </div>
+            </div>
+            <div class="row">
+                <!-- ======= City ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('city') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.city')</span>
+                    </div>
+                <input type="text" id="city" name="city" class="form-control" placeholder="@lang('interface.city')" value="{{ old('city') }}">
+                </div>
+                
+                <!-- ======= Relation ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('relation') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.relation')</span>
+                    </div>
+                    <select id="relation" name="relation" class="form-control" value="{{ old('relation') }}">
+                        <option disabled selected value> -- <!--@lang('interface.relation')-->@lang('interface.select_option') -- </option>
+                        <option value="father">@lang('interface.father')</option>
+                        <option value="mother">@lang('interface.mother')</option>
+                        <option value="sister">@lang('interface.sister')</option>
+                        <option value="brother">@lang('interface.brother')</option>
+                        <option value="uncle">@lang('interface.uncle')</option>
+                        <option value="maternal_uncle">@lang('interface.maternal_uncle')</option>
+                        <option value="other_relative">@lang('interface.other_relative')</option>
+                    </select> 
+                </div> 
+            </div>
+        </div> 
+        <div id="gStudent" class= "form-group  bg-info rounded  p-2" >
+            <div class= "input-group justify-content-center" >
+                <label for="gStudent" class="">@lang('interface.student')</label>
+            </div>
+            <div class="row">
+                <!-- ======= Student Name ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('student_name') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.student_name')</span>
+                    </div>
+                    <input type="text" id="student_name" name="student_name" class="form-control" placeholder="@lang('interface.student_name')" value="{{ old('student_name') }}">
+                </div>
+                <!-- ======= Student gender ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('gender') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.gender')</span>
+                    </div>
+                    <select id="gender" name="gender" class="form-control" value="{{ old('gender') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                        <option value="male">@lang('interface.male')</option>
+                        <option value="female">@lang('interface.female')</option>
+                    </select> 
+                </div> 
+            </div>
 
+        </div> 
+        <div id="gClass" class= "form-group  bg-info rounded  p-2" >
+            <div class= "input-group justify-content-center" >
+                <label for="gClass" class="">@lang('interface.class')</label>
+            </div>
+            <div class="row">
+                <!-- ======= School ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('school') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.school')</span>
+                    </div>
+                    <select id="school" name="school" class="form-control" value="{{ old('school') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                        <?php 
+                            foreach($shools as $shool){
+                                echo "<option value=" . $shool->id . ">" . $shool->school_name ."</option>";
+                            } 
+                        ?>
+                    </select> 
+                </div> 
+                <!-- ======= Class ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('class') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.class')</span>
+                    </div>
+                    <select id="class" name="class" class="form-control" value="{{ old('class') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
+                </div> 
+            </div> 
+            <div class="row">
+                <!-- ======= Section ======= -->
+                <div class= "col-md-6 input-group my-2 {{ $errors->has('section') ? 'has-error' : '' }}" >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.section')</span>
+                    </div>
+                    <select id="section" name="section" class="form-control" value="{{ old('section') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
+                </div> 
+            </div> 
+        </div> 
+        <div class= "form-group  bg-info rounded  p-2 {{ $errors->has('payment_type') ? 'has-error' : '' }}" >
+            <!-- ======= Payment Type ======= -->
+            <div class= "col-md-6 input-group my-2" >
+                <div class= "input-group-prepend" >
+                    <span class="input-group-text"style="min-width:100px">@lang('interface.payment_type')</span>
+                </div>
+                <select id="payment_type" name="payment_type" class="form-control" value="{{ old('payment_type') }}">
+                    <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    <?php 
+                        foreach($paymentTypes as $paymentType){
+                            echo "<option value=" . $paymentType->id . ">" . $paymentType->name ."</option>";
+                        } 
                     ?>
-                    <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('peSection') ? 'has-error' : '' }}">
-                            <label for="peSection"><?php echo $lSection ?></label>
-                            <select id="peSection" name="peSection" class="form-control" value="{{ old('peSection') }}">
-                                <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
-                                
-                            </select>
-                            <span class="text-danger">{{ $errors->first('peSection') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <label for="gPaymant">
-                <?php 
-                // echo $lGroupPaymant
-                ?>
-            </label> -->
-            <div id="gPaymant">
-                <div class="row ">
-                    <div class="col-md-6 ">
-                        <div class="form-group {{ $errors->has('pePaymantType') ? 'has-error' : '' }}">
-                            <label for="pePaymantType"><?php echo $lPaymentType ?></label>
-                            <select id="pePaymantType" name="pePaymantType" class="form-control" value="{{ old('pePaymantType') }}">
-                            <option disabled selected value> -- <?php echo $lSelection ?> -- </option>
-                            <?php 
-                                foreach($paymentTypes as $paymentType){
-                                    echo "<option value=" . $paymentType->id . ">" . $paymentType->name ."</option>";
-                                } 
-                            ?>
-                            </select>
-                            <span class="text-danger">{{ $errors->first('pePaymantType') }}</span>
-                        </div>
-                    </div>
-                </div>
-                
+                </select> 
             </div> 
-            <div id="gTerms">
-                <input id="peTermsAccept" type="checkbox" name="peTermsAccept" value="acceptContract"> <?php echo $lAcceptTerms ?>
-                <a href="https://www.w3schools.com/" target="_blank"><?php echo $lContract ?></a><br>                
-            </div>  
-                <input id="btnSubmit" type="submit" value =<?php echo $lSumbit ?>>
-            </form>
-            <br><br><br>
+        </div> 
+        <!-- ======= Terms ======= -->
+        <div class="input-group justify-content-center">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input id="terms" name="terms" type="checkbox" class="form-check-input">@lang('interface.accept_terms') <a href="https://www.w3schools.com/" target="_blank">@lang('interface.terms')</a>
+                </label>
+            </div>
         </div>
-    </div>
-    <td><button class="content" onclick="location.href='{{ url('') }}'">
-     Form</button></td>
-    
-     <script  type="text/javascript" src="{{ URL::asset('../resources/js/dbpreenrollment.js') }}"></script>
+        <div class="input-group justify-content-end">
+            <input id="submit" type="submit" class="btn btn-primary" value =@lang('interface.submit')>
+        </div>
+    </form>
+</div>
 
+
+                
+                                
+                                
+                                    
     
-    <!-- <script src="../resources/js/inputmask.js"></script> -->
-     <script type="text/javascript">
-     
-    //  function teste(){
-    //             console.log("teste:" + document.getElementById("peTermsAccept").checked);
-    //             console.log("Disabled:" + $(":submit").is(":disabled");
-    //         }
-        $(document).ready(function(){
-            $("#peTermsAccept").change(function() {
-                if(this.checked) {
-                    // console.log("1");
-                    $("#btnSubmit").disabled = false;
-                 } else {
-                    // console.log("2");
-                    // $("#btnSubmit").disabled = true;
-                    document.getElementById("submit").disabled=true;
-                }
-            });
-           
-            
-        });
-     </script>
+    
+@endsection
+
+@section('scripts')
+<script  type="text/javascript" src='public/js/dataloader.js'></script>
 @endsection
