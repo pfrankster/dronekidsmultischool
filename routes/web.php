@@ -12,25 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/preenrollment', function () {
     return view('preenrollment');
 });
-Route::get('/preenrollmentTeste', function () {
-    return view('tests/preenrollment');
-});
+// Route::get('preenrollment', function () {
+//     return view('preenrollment');
+// });
 
+Route::post('pvalidation','PEValController@ValidationPost');
 
-Route::get('peValidate/form', 'PreEnrollmentController@peValidation');
-Route::post('peValidate', 'PreEnrollmentController@peValidationPost');
+Route::post('getclass', 'DBController@get_classes_by');
+Route::post('getsections', 'DBController@get_sections_by');
 
-
-Route::get('preenrollment/test', 'TmpSectionController@testfunction');
-Route::post('preenrollment/test', 'TmpSectionController@testfunction');
-
-Route::post('getClasses', 'DataBaseController@getClassesBy');
-Route::post('getSections', 'DataBaseController@getSectionsBy');
-
-Route::post('submitpreenroll', 'DataBaseController@submitPreEnrollment');
+Route::post('submitpreenroll', 'DBController@submit_preenrollment');
