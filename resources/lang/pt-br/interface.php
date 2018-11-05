@@ -37,4 +37,7 @@ return [
     'terms' => 'Contrato',
     'submit' => 'Enviar',
     'prefix_placehold' => 'Informe ',
+    'error_form' => 'Ops!!! Existe algum problema com as informações inceridas',
+    'form_send' => 'Informações de Mátricula enviados!',
+    'back_home' => 'Pagina Inicial',
 ];

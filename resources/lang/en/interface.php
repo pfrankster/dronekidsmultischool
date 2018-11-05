@@ -37,5 +37,8 @@ return [
     'terms' => 'Contract',
     'submit' => 'Submit',
     'prefix_placehold' => 'Inform ',
+    'error_form' => 'Whoops! There were some problems with your input.',
+    'form_send' => 'Thank you!! Registration details have been sent.',
+    'back_home' => 'Home Page',
     
 ];
