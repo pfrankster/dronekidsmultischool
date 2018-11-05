@@ -24,3 +24,5 @@ Route::post('getclass', 'DBController@get_classes_by');
 Route::post('getsections', 'DBController@get_sections_by');
 
 Route::post('submitpreenroll', 'DBController@submit_preenrollment');
+
+Route::any('sendMail', 'MSGController@sendMail');

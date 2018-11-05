@@ -2,9 +2,7 @@
 @extends('layouts.master')
 
 @section('title')
-@section('title')
 @lang('interface.title')
-@endsection
 @endsection
 
 @section('content')
@@ -232,5 +230,5 @@
 @endsection
 
 @section('scripts')
-<script  type="text/javascript" src='js/dataloader.js'></script>
+<script  type="text/javascript" src='public/js/dataloader.js'></script>
 @endsection

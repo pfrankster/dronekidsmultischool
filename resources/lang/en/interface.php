@@ -40,5 +40,6 @@ return [
     'error_form' => 'Whoops! There were some problems with your input.',
     'form_send' => 'Thank you!! Registration details have been sent.',
     'back_home' => 'Home Page',
+    'name' => 'Name',
     
 ];
