@@ -37,8 +37,8 @@ class PEValController extends Controller
     		],[]);
 
 		$enroll_id = DBController::submit_preenrollment($request);
-		SELF::processe_data($request , $enroll_id);
-		return view('preenrolled');
+		$url = SELF::processe_data($request , $enroll_id);
+		return view('preenrolled')->with('pay_link', $url);
 		// dd('You are successfully added all fields.');
 		
 	}
@@ -59,7 +59,7 @@ class PEValController extends Controller
 		$tmp = array("course_value"=>$course_value,"n_installments"=>$n_installments, "enroll_id"=>$enroll_id);
 		// $new = array_merge($request,$tmp);
 		$url = MSGController::create_pay_url($request,$tmp);
-		dd($url);
-
+		// dd($url);
+		return $url;
 	}
 }

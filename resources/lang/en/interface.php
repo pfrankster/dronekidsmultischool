@@ -39,7 +39,9 @@ return [
     'prefix_placehold' => 'Inform ',
     'error_form' => 'Whoops! There were some problems with your input.',
     'form_send' => 'Thank you!! Registration details have been sent.',
+    'form_send2' => '',
     'back_home' => 'Home Page',
+    'pay_page' => 'Payment Page',
     'name' => 'Name',
     
 ];

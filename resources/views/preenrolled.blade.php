@@ -8,9 +8,12 @@
 <div class= "container shadow p-3">
     <div class="title">@lang('interface.title')</div> 
     <div>
-        <label class= "bg-light rounded p-2"> @lang('interface.form_send')</label>  
+        <label class= "bg-light rounded p-2"> 
+            <p>@lang('interface.form_send')</p>
+            <p>@lang('interface.form_send2')</p>
+        </label> 
     </div>
-    <a class='btn btn-info' href="http://www.dronekids.com.br">@lang('interface.back_home') </a>
+    <a class='btn btn-info' href={{$pay_link}}>@lang('interface.back_home') </a>
     
 </div>
 @endsection

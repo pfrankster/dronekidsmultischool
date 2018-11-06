@@ -40,7 +40,7 @@
                     <div class= "input-group-prepend " >
                         <span class="input-group-text"style="min-width:100px">@lang('interface.guardian_name')</span>
                     </div>
-                    <input type="text" id="guardian_name" name="guardian_name" class="form-control {{ $errors->has('guardian_name') ? 'is-invalid' : '' }}" placeholder="@lang('interface.guardian_name')">
+                    <input type="text" id="guardian_name" name="guardian_name" class="form-control {{ $errors->has('guardian_name') ? 'is-invalid' : '' }}" placeholder="@lang('interface.guardian_name')" value="{{ old('guardian_name') }}">
                     <span class="col-md-12 text-danger">{{ $errors->first('guardian_name') }}</span>
                 </div>
                 <!-- ======= CPF ======= -->

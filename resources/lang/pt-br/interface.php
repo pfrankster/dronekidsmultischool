@@ -38,7 +38,9 @@ return [
     'submit' => 'Enviar',
     'prefix_placehold' => 'Informe ',
     'error_form' => 'Ops!!! Existe algum problema com as informações inceridas',
-    'form_send' => 'Informações de Mátricula enviados!',
+    'form_send' => 'Seus dados foram cadastrados com sucesso, para que sua matrícula seja efetuada é necessário cumprir mais uma etapa.',
+    'form_send2' => 'Ao clicar no link abaixo, você será enviado para a página onde será processado o pagamento.',
     'back_home' => 'Pagina Inicial',
+    'pay_page' => 'Pagina de pagamento',
     'name' => 'Nome',
 ];
