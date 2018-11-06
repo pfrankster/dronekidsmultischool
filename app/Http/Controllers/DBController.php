@@ -36,7 +36,7 @@ class DBController extends Controller
             'guardian_relation' => $request->relation,
             'student_name' => $request->student_name,
             'student_gender' => $request->gender,
-            'section_id' => (int)$request->section_id,
+            'section_id' => (int)$request->section,
             'payment_type_id' => (int)$request->payment_type
             ]
         );
