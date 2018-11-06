@@ -25,7 +25,7 @@ class DBController extends Controller
     }
 
     static function submit_preenrollment(Request $request){
-        DB::table('pre_enrollments')->insertGetId([
+        $id = DB::table('pre_enrollments')->insertGetId([
             'guardian_name' => $request->guardian_name, 
             'guardian_cpf' => $request->cpf,
             'guardian_phone' => $request->phone,
@@ -40,6 +40,10 @@ class DBController extends Controller
             'payment_type_id' => (int)$request->payment_type
             ]
         );
+        return $id;
+    }
 
+    static function get_class_data($class_id){
+        return DB::table('classes')->where('id',$class_id)->first();
     }
 }
