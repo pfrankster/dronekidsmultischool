@@ -298,7 +298,7 @@ class Preenroll extends MY_Controller {
              error($this->lang->line('unexpected_error'));
               redirect('preenroll/index');
         }
-        $preenroll = $this->preenroll->get_single_preenroll($preenroll_id);        
+        $preenroll = $this->preenroll->get_single_preenroll($id);        
         // $preenroll = $this->preenroll->get_single('pre_enrollments', array('id' => $id));
         if (!empty($preenroll)) {
             // $preenroll->
