@@ -58,7 +58,7 @@
                     <div class= "input-group-prepend" >
                         <span class="input-group-text"style="min-width:100px">@lang('interface.email')</span>
                     </div>
-                    <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" placeholder="@lang('interface.email')" value="{{ old('email') }}"pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                    <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" placeholder="@lang('interface.email')" value="{{ old('email') }}">
                     <span class="col-md-12 text-danger">{{ $errors->first('email') }}</span>
                 </div>
                 <!-- ======= Phone ======= -->
@@ -231,4 +231,5 @@
 
 @section('scripts')
 <script  type="text/javascript" src='public/js/dataloader.js'></script>
+<script  type="text/javascript" src='public/js/datamask.js'></script>
 @endsection
