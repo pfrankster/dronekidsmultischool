@@ -20,7 +20,7 @@ class PEValController extends Controller
 		// dd($request);
     	$validatedData = $this->validate($request,[
 				'guardian_name' => 'bail|required|max:255',
-				'cpf' => 'bail|required|max:18',
+				'cpf' => 'bail|required|max:18|cpf',
 				'phone' => 'bail|required|max:19|regex:/^(\([0-9]{2}\))\s([0-9]{4,5})\-([0-9]{4})/u',
 				'relation' => 'bail|required',
 				'address' => 'bail|required|max:100',
