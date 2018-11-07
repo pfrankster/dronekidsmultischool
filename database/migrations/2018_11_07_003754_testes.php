@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePaymentTypes extends Migration
+class Testes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateTablePaymentTypes extends Migration
      */
     public function up()
     {
-        Schema::create('paymant_types', function (Blueprint $table) {
+        Schema::create('teste', function (Blueprint $table) {
             $table->increments('id')->autoIncrement();
-            $table->string('name');
-            // $table->timestamps();
+            $table->string('name')->default('teste');
+            $table->unsignedInteger('number');
+            $table->timestamps();
         });
+        //
     }
 
     /**
@@ -27,6 +29,6 @@ class CreateTablePaymentTypes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paymant_types');
+        Schema::dropIfExists('teste');
     }
 }

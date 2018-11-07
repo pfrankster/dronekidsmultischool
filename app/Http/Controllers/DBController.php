@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class DBController extends Controller
 {
     static function get_shools(){
@@ -37,7 +38,9 @@ class DBController extends Controller
             'student_name' => $request->student_name,
             'student_gender' => $request->gender,
             'section_id' => (int)$request->section,
-            'payment_type_id' => (int)$request->payment_type
+            'payment_type_id' => (int)$request->payment_type,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]
         );
         return $id;
@@ -46,4 +49,9 @@ class DBController extends Controller
     static function get_class_data($class_id){
         return DB::table('classes')->where('id',$class_id)->first();
     }
+
+    static function new_student(){}
+    static function new_guardian(){}
+    static function new_enrollment(){}
+
 }
