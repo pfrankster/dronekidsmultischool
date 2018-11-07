@@ -87,7 +87,7 @@
                                                     <td><?php echo $obj->class_name; ?></td>
                                                     <td><?php echo $obj->section_name; ?></td>
                                                     <td><?php echo $obj->payment_type; ?></td>
-                                                    <td><?php echo $obj->status; ?></td>
+                                                    <td><?php echo $this->lang->line($obj->status); ?></td>
                                                     <td>
                                                         <!-- Approval btn -->
                                                         <?php if(has_permission(EDIT, 'preenroll', 'preenroll') && $obj->status_id == 1){ ?>
@@ -282,7 +282,7 @@
                                             <select  class="form-control col-md-7 col-xs-12" name="status_id" id="add_status_id" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <?php foreach($status_types as $obj){ ?>
-                                                    <option value="<?php echo $obj->id; ?>" ><?php echo $obj->name; ?></option>
+                                                    <option value="<?php echo $obj->id; ?>" ><?php echo $this->lang->line($obj->name); ?></option>
                                                 <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('status_id'); ?></div>
@@ -470,7 +470,7 @@
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                     
                                                     <?php foreach($status_types as $obj){ ?>
-                                                        <option value="<?php echo $obj->id; ?>" <?php if($preenroll->status_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>
+                                                        <option value="<?php echo $obj->id; ?>" <?php if($preenroll->status_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $this->lang->line($obj->name); ?></option>
                                                     <?php } ?>
                                                 </select>
                                                 <div class="help-block"><?php echo form_error('status_id'); ?></div>
@@ -603,7 +603,7 @@
                                         <div class="item form-group">
                                             <label class="col-md-3 col-sm-3 col-xs-4"><?php echo $this->lang->line('status'); ?></label>
                                             <div class="col-md-9 col-sm-9 col-xs-8">
-                                            : <?php echo $preenroll->status; ?>
+                                            : <?php echo $this->lang->line($preenroll->status); ?>
                                             </div>
                                         </div>
                                         <!-- ======= Buttoms ======= -->
