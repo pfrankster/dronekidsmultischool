@@ -9,6 +9,7 @@
 <?php
         use App\Http\Controllers\DBController;
         $paymentTypes = DBController::get_payment_types();
+        $states = DBController::get_states();
         $shools = DBController::get_shools();
 ?>
 <div class= "container shadow p-3">
@@ -82,11 +83,18 @@
                 <!-- ======= State ======= -->
                 <div class= "col-md-6 input-group my-2 " >
                     <div class= "input-group-prepend" >
-                        <span class="input-group-text"style="min-width:100px">@lang('interface.state')</span>
+                        <span class="input-group-text "style="min-width:100px">@lang('interface.state')</span>
                     </div>
-                    <input type="text" id="state" name="state" class="form-control {{ $errors->has('state') ? 'is-invalid' : '' }}" placeholder="@lang('interface.state')" value="{{ old('state') }}">
+                    <select id="state" name="state" class="form-control {{ $errors->has('state') ? 'is-invalid' : '' }}" value="{{ old('state') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                        <?php 
+                            foreach($states as $state){
+                                echo "<option value=" . $state->id . ">" . $state->name ."</option>";
+                            } 
+                        ?>
+                    </select> 
                     <span class="col-md-12 text-danger">{{ $errors->first('state') }}</span>
-                </div>
+                </div> 
             </div>
             <div class="row">
                 <!-- ======= City ======= -->
@@ -94,9 +102,11 @@
                     <div class= "input-group-prepend" >
                         <span class="input-group-text"style="min-width:100px">@lang('interface.city')</span>
                     </div>
-                    <input type="text" id="city" name="city" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" placeholder="@lang('interface.city')" value="{{ old('city') }}">
+                    <select id="city" name="city" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" value="{{ old('city') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
                     <span class="col-md-12 text-danger">{{ $errors->first('city') }}</span>
-                </div>
+                </div> 
                 
                 <!-- ======= Relation ======= -->
                 <div class= "col-md-6 input-group my-2 " >

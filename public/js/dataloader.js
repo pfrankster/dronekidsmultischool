@@ -23,7 +23,6 @@ $(document).ready(function(){
     });
     // ---------- Re-populate section selector ----------
     $("#class").change (function(){
-        console.log("1");
         $.post('index.php/getsections',{school_id : $("#school").val(),class_id : $("#class").val()}, function(response){ 
             $('#section').children('option:not(:first)').remove();
             $("#section").val("");
@@ -34,7 +33,19 @@ $(document).ready(function(){
                 .text(data.name));
             });                    
         });
-        console.log("3");
+    });
+    // ---------- Re-populate city selector ----------
+    $("#state").change (function(){
+        $.post('index.php/getcity',{uf_id : $("#state").val()}, function(response){
+            $('#city').children('option:not(:first)').remove();
+            $("#city").val("");
+            $.each(response, function(index, data){
+                $('#city')
+                .append($("<option></option>")
+                .attr("value",data.id)
+                .text(data.name));
+            });                    
+        });
     });
     // $("form").submit(function(){
     //     console.log("send submit");

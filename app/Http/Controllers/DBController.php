@@ -54,6 +54,12 @@ class DBController extends Controller
         return DB::table('pre_enrollments')->get();
     }
 
+    static function get_states(){
+        return DB::table('state')->get();
+    }
+    static function get_city(Request $request){
+        return DB::table('city')->where('uf_id',$request->uf_id)->get();
+    }
     static function add_guardian($obj){
         $id = DB::table('guardians')->insertGetId([
             'school_id' => $objs->school, 
