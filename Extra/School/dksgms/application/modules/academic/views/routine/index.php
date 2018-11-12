@@ -9,10 +9,13 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
+                <!-- Page Contents to hide/Show -->
                 <div class="" data-example-id="togglable-tabs">
-                    
+                <!-- Page Tab Elemnts -->
                     <ul  class="nav nav-tabs bordered">
+                        <!-- List Tab -->
                         <li class="<?php if(isset($list)){ echo 'active'; }?>"><a href="#tab_routine_list"   role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-list-ol"></i> <?php echo $this->lang->line('routine'); ?> <?php echo $this->lang->line('list'); ?></a> </li>
+                        <!-- Add Tab -->
                         <?php if(has_permission(ADD, 'academic', 'routine')){ ?>
                              <?php if(isset($edit)){ ?>
                                 <li  class="<?php if(isset($add)){ echo 'active'; }?>"><a href="<?php echo site_url('academic/routine/add'); ?>"  aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?> <?php echo $this->lang->line('routine'); ?></a> </li>                          
@@ -20,10 +23,11 @@
                                 <li  class="<?php if(isset($add)){ echo 'active'; }?>"><a href="#tab_add_routine"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?> <?php echo $this->lang->line('routine'); ?></a> </li>                          
                              <?php } ?>
                         <?php } ?>
+                        <!-- Show last edit -->
                         <?php if(isset($edit)){ ?>
                             <li  class="active"><a href="#tab_edit_routine"  role="tab"  data-toggle="tab" aria-expanded="false"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> <?php echo $this->lang->line('routine'); ?></a> </li>                          
                         <?php } ?>
-                            
+                        <!-- Select school and class -->
                         <li class="li-class-list">
                             <?php if($this->session->userdata('role_id') != SUPER_ADMIN){  ?> 
                                 <select  class="form-control col-md-7 col-xs-12" onchange="get_subject_by_class(this.value);">
@@ -61,28 +65,36 @@
                         </li>
                     </ul>
                     <br/>
-                    
+                    <!-- ============================================== -->
+                    <!-- Tab content -->
                     <div class="tab-content">
+                        <!-- ============================================== -->
+                        <!-- Tab List elements -->
+                        <!-- ============================================== -->
                         <div  class="tab-pane fade in <?php if(isset($list)){ echo 'active'; }?>" id="tab_routine_list" >
                             
                             <div class="x_content">
                                 <div class="" data-example-id="togglable-tabs">
+                                   <!-- Sub Tab Elemnts -->
                                     <?php if(isset($sections) && !empty($sections)){ ?>  
                                         <ul  class="nav nav-tabs bordered sub-tabs">
                                             <?php foreach($sections as $key=>$obj){ ?>
-                                                <li class="<?php if($key == 0){ echo 'active'; } ?>"><a href="#tab_section_<?php echo $obj->name; ?>"   role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-list"> </i> <?php echo $this->lang->line('section'); ?> <?php echo $obj->name; ?></a> </li>
+                                                <li class="<?php if($key == 0){ echo 'active'; } ?>"><a href="#tab_section_<?php echo preg_replace('/[\\/:*?"<>| ]/u', '', $obj->name); ?>"   role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-list"> </i> <?php echo $this->lang->line('section'); ?> <?php echo $obj->name; ?></a> </li>
                                             <?php } ?>
                                         </ul>
                                     <?php } ?>
+                                    <!-- Sub Tab contaent -->
                                     <div class="tab-content">
-                                        
+                                    
                                      <?php if(isset($sections) && !empty($sections)){ ?>   
                                         <?php foreach($sections as $key=>$obj){ ?>   
-                                           <div  class="tab-pane fade in <?php if($key == 0){ echo 'active'; } ?>" id="tab_section_<?php echo $obj->name; ?>" >
+                                           <div  class="tab-pane fade in <?php if($key == 0){ echo 'active'; } ?>" id="tab_section_<?php echo preg_replace('/[\\/:*?"<>| ]/u', '', $obj->name); ?>" >
                                                <div class="x_content">
                                                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                                        <tbody>
+                                                            <!-- Construct Left week name list -->
                                                            <?php $days = get_week_days(); ?>
+                                                           <!-- Load Rotines  -->
                                                            <?php foreach($days as $daykey=>$day){ ?>
                                                                <tr>
                                                                    <td width="100"><?php echo $day; ?></td>
@@ -133,8 +145,9 @@
                             </div>
                         </div> <!-- End first tab -->
                         
-                        
-
+                        <!-- ============================================== -->
+                        <!-- Tab Add elements -->
+                        <!-- ============================================== -->
                         <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_routine">
                             <div class="x_content"> 
                                <?php echo form_open(site_url('academic/routine/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
@@ -245,7 +258,9 @@
                                 
                             </div>
                         </div>  
-
+                        <!-- ============================================== -->
+                        <!-- Tab Edit elements -->
+                        <!-- ============================================== -->
                         <?php if(isset($edit)){ ?>
                         <div class="tab-pane fade in active" id="tab_edit_routine">
                             <div class="x_content"> 

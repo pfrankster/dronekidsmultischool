@@ -199,6 +199,12 @@
                         <?php } ?>
                     <?php } ?>
                     
+                    <?php // pe added ?>
+                    <?php if(has_permission(VIEW, 'preenroll', 'preenroll') /*|| has_permission(ADD, 'preenroll', 'preenroll')*/){ ?>
+                        <li><a href="<?php echo site_url('preenroll/index/'); ?>"><i class="fa fa-group"></i> <?php echo $this->lang->line('preenroll'); ?></a> </li>
+                    <?php } ?>
+                    <?php // pe added ?>
+                    
                     <?php if(has_permission(VIEW, 'attendance', 'student') || has_permission(VIEW, 'attendance', 'teacher') || has_permission(VIEW, 'attendance', 'employee')){ ?>
                         <li><a><i class="fa fa-check-circle-o"></i> <?php echo $this->lang->line('attendance'); ?> <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">

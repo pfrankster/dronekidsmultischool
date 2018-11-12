@@ -60,7 +60,7 @@
                                             <th><?php echo $this->lang->line('guardian_relation'); ?></th>
                                             <th><?php echo $this->lang->line('student_name'); ?></th>
                                             <th><?php echo $this->lang->line('student_gender'); ?></th>
-                                            <th><?php echo $this->lang->line('school'); ?></th>
+                                            
                                             <th><?php echo $this->lang->line('class'); ?></th>
                                             <th><?php echo $this->lang->line('section'); ?></th>
                                             <th><?php echo $this->lang->line('payment_type'); ?></th>
@@ -83,7 +83,7 @@
                                                     <td><?php echo $obj->guardian_relation; ?></td>
                                                     <td><?php echo $obj->student_name; ?></td>
                                                     <td><?php echo $obj->student_gender; ?></td>
-                                                    <td><?php echo $obj->school_name; ?></td>
+                                                  
                                                     <td><?php echo $obj->class_name; ?></td>
                                                     <td><?php echo $obj->section_name; ?></td>
                                                     <td><?php echo $obj->payment_type; ?></td>
@@ -120,7 +120,6 @@
                         <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_preenroll">
                             <div class="x_content">
                                 <?php echo form_open_multipart(site_url('preenroll/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
-                                    <?php $this->load->view('layout/school_list_form'); ?>
                                     <!-- ======= Guardian Name ======= -->
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="guardian_name"><?php echo $this->lang->line('guardian_name'); ?> <span class="required">*</span>
@@ -308,7 +307,6 @@
                             <div class="tab-pane fade in active" id="tab_edit_preenroll">
                                 <div class="x_content"> 
                                     <?php echo form_open_multipart(site_url('preenroll/edit/'. $preenroll->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
-                                        <?php $this->load->view('layout/school_list_edit_form'); ?>
                                         <!-- ======= Guardian Name ======= -->
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="guardian_name"><?php echo $this->lang->line('guardian_name'); ?> <span class="required">*</span>
@@ -343,24 +341,6 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input  class="form-control col-md-7 col-xs-12"  name="address"  id="address" value="<?php echo isset($preenroll->address) ?  $preenroll->address : $post['address']; ?>" placeholder="<?php echo $this->lang->line('address'); ?>" required="required" type="text">
                                                 <div class="help-block"><?php echo form_error('address'); ?></div>
-                                            </div>
-                                        </div>
-                                        <!-- ======= State ======= -->
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state"><?php echo $this->lang->line('state'); ?> <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input  class="form-control col-md-7 col-xs-12"  name="state"  id="state" value="<?php echo isset($preenroll->state) ?  $preenroll->state : $post['state']; ?>" placeholder="<?php echo $this->lang->line('state'); ?>" required="required" type="text">
-                                                <div class="help-block"><?php echo form_error('state'); ?></div>
-                                            </div>
-                                        </div>
-                                        <!-- ======= City ======= -->
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input  class="form-control col-md-7 col-xs-12"  name="city"  id="city" value="<?php echo isset($preenroll->city) ?  $preenroll->city : $post['city']; ?>" placeholder="<?php echo $this->lang->line('city'); ?>" required="required" type="text">
-                                                <div class="help-block"><?php echo form_error('city'); ?></div>
                                             </div>
                                         </div>
                                         <!-- ======= Email ======= -->
@@ -412,19 +392,7 @@
                                             </div>
                                         </div>
                                         <!-- ======= School ======= -->
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="school_id"><?php echo $this->lang->line('school'); ?> 
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select  class="form-control col-md-7 col-xs-12" name="school_id" id="edit_school_id" onchange="get_class_by_school(this.value,'');" disabled="disabled">
-                                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                    <?php foreach($schools as $obj){ ?>
-                                                        <option value="<?php echo $obj->id; ?>" <?php if($preenroll->school_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->school_name; ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                                <div class="help-block"><?php echo form_error('school_id'); ?></div>
-                                            </div>
-                                        </div>
+                                        
                                         <!-- ======= Class ======= -->
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> 
@@ -572,12 +540,7 @@
                                             </div>
                                         </div>
                                         <!-- =======  ======= -->
-                                        <div class="item form-group">
-                                            <label class="col-md-3 col-sm-3 col-xs-4"><?php echo $this->lang->line('school'); ?></label>
-                                            <div class="col-md-9 col-sm-9 col-xs-8">
-                                            : <td><?php echo $preenroll->school_name; ?></td>
-                                            </div>
-                                        </div>
+                                        
                                         <!-- =======  ======= -->
                                         <div class="item form-group">
                                             <label class="col-md-3 col-sm-3 col-xs-4"><?php echo $this->lang->line('class'); ?></label>
