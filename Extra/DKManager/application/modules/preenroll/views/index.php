@@ -120,7 +120,6 @@
                         <div  class="tab-pane fade in <?php if(isset($add)){ echo 'active'; }?>" id="tab_add_preenroll">
                             <div class="x_content">
                                 <?php echo form_open_multipart(site_url('preenroll/add'), array('name' => 'add', 'id' => 'add', 'class'=>'form-horizontal form-label-left'), ''); ?>
-                                    <?php $this->load->view('layout/school_list_form'); ?>
                                     <!-- ======= Guardian Name ======= -->
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="guardian_name"><?php echo $this->lang->line('guardian_name'); ?> <span class="required">*</span>
