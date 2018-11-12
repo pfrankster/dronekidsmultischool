@@ -679,7 +679,6 @@ class Ajax extends My_Controller {
 
 
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
-
         $select = 'selected="selected"';
         if (!empty($city)) {
             foreach ($city as $obj) {

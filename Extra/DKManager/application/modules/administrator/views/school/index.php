@@ -82,6 +82,8 @@
                                             <td><?php echo $count++; ?></td>
                                             <td><?php echo $obj->school_name; ?></td>
                                             <td><?php echo $obj->address; ?></td>
+                                            <td><?php //echo $obj->state_name; ?></td>
+                                            <td><?php //echo $obj->city_name; ?></td>
                                             <td><?php echo $obj->phone; ?></td>
                                             <td><?php echo $obj->email; ?></td>
                                             <td><?php echo $obj->currency; ?></td>
@@ -118,7 +120,7 @@
                                         <div class="help-block"><?php echo form_error('school_name'); ?></div>
                                     </div>
                                 </div>
-
+                                <!-- Address -->
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address"><?php echo $this->lang->line('address'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -126,7 +128,33 @@
                                         <div class="help-block"><?php echo form_error('address'); ?></div>
                                     </div>
                                 </div>
-                                
+                                <!-- ======= State ======= -->
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state_id"><?php echo $this->lang->line('state'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="state_id" id="add_state_id" onchange="get_city_by_state('');" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            <?php $states = get_states_list(); ?>
+                                            <?php foreach($states as $obj){ ?>
+                                                <option value="<?php echo $obj->id; ?>" <?php echo isset($post['state_id']) && $post['state_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('state_id'); ?></div>
+                                    </div>
+                                </div>
+                                <!-- ======= City ======= -->
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city_id"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12" name="city_id" id="edit_city_id" required="required">
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('city_id'); ?></div>
+                                    </div>
+                                </div> 
+                                <!--  Phone  -->
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone"><?php echo $this->lang->line('phone'); ?> <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -315,6 +343,35 @@
 </div>
 <!-- datatable with buttons -->
  <script type="text/javascript">
+ function get_city_by_state(city_id){
+        // var isEditMode = isset($edit);
+        var state_id = '';
+        <?php if(isset($edit)){ ?>                
+            state_id = $('#edit_state_id').val();
+        <?php }else{ ?> 
+            state_id = $('#add_state_id').val();
+        <?php } ?> 
+        if(!state_id){
+            alert('<?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('state'); ?>');
+            return false;
+        }
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_city_by_state'); ?>",
+            data   : { state_id:state_id},               
+            async  : false,
+            success: function(response){     
+                if(response)
+                {
+                    <?php if(!isset($edit)){ ?>                                             
+                        $('#add_city_id').html(response);
+                    <?php }else{ ?> 
+                        $('#edit_city_id').html(response);
+                    <?php } ?> 
+                }
+            }
+        });
+    }
         $(document).ready(function() {
           $('#datatable-responsive').DataTable( {
               dom: 'Bfrtip',

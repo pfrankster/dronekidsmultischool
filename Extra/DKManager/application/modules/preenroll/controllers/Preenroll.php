@@ -191,8 +191,8 @@ class Preenroll extends MY_Controller {
         $this->form_validation->set_rules('guardian_phone', $this->lang->line('guardian_phone'), 'trim|required');
         $this->form_validation->set_rules('guardian_relation', $this->lang->line('guardian_relation'), 'trim|required');
         $this->form_validation->set_rules('address', $this->lang->line('address'), 'trim|required');
-        $this->form_validation->set_rules('state', $this->lang->line('state'), 'trim|required');
-        $this->form_validation->set_rules('city', $this->lang->line('city'), 'trim|required');
+        $this->form_validation->set_rules('state_id', $this->lang->line('state'), 'trim|required');
+        $this->form_validation->set_rules('city_id', $this->lang->line('city'), 'trim|required');
         // $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|required|valid_email|callback_email');
         $this->form_validation->set_rules('student_name', $this->lang->line('student_name'), 'trim|required');
         $this->form_validation->set_rules('student_gender', $this->lang->line('student_gender'), 'trim|required');
@@ -252,8 +252,8 @@ class Preenroll extends MY_Controller {
         $items[] = 'guardian_phone';
         $items[] = 'guardian_relation';
         $items[] = 'address';
-        $items[] = 'state';
-        $items[] = 'city';
+        $items[] = 'state_id';
+        $items[] = 'city_id';
         $items[] = 'email';
         $items[] = 'student_name';
         $items[] = 'student_gender';
@@ -263,6 +263,8 @@ class Preenroll extends MY_Controller {
 
         $data = elements($items, $_POST);
 
+        // $data['state_id'] = $_POST['state'];
+        // $data['city_id'] = $_POST['city'];
         // $data['dob'] = date('Y-m-d', strtotime($this->input->post('dob')));
 
         // if ($this->input->post('id')) {

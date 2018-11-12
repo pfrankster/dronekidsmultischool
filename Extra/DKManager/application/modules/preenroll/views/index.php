@@ -77,8 +77,8 @@
                                                     <td><?php echo $obj->guardian_cpf; ?></td>
                                                     <td><?php echo $obj->guardian_phone; ?></td>
                                                     <td><?php echo $obj->address; ?></td>
-                                                    <td><?php echo $obj->state; ?></td>
-                                                    <td><?php echo $obj->city; ?></td>
+                                                    <td><?php echo $obj->state_name; ?></td>
+                                                    <td><?php echo $obj->city_name; ?></td>
                                                     <td><?php echo $obj->email; ?></td>
                                                     <td><?php echo $obj->guardian_relation; ?></td>
                                                     <td><?php echo $obj->student_name; ?></td>
@@ -156,24 +156,33 @@
                                             <div class="help-block"><?php echo form_error('address'); ?></div>
                                         </div>
                                     </div>
+
                                     <!-- ======= State ======= -->
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state"><?php echo $this->lang->line('state'); ?> <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state_id"><?php echo $this->lang->line('state'); ?> <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input  class="form-control col-md-7 col-xs-12"  name="state"  id="state" value="<?php echo isset($post['state']) ?  $post['state'] : ''; ?>" placeholder="<?php echo $this->lang->line('state'); ?>" required="required" type="text">
-                                            <div class="help-block"><?php echo form_error('state'); ?></div>
+                                            <select  class="form-control col-md-7 col-xs-12" name="state_id" id="add_state_id" onchange="get_city_by_state('');" required="required">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                <?php $states = get_states_list(); ?>
+                                                <?php foreach($states as $obj){ ?>
+                                                    <option value="<?php echo $obj->id; ?>" <?php echo isset($post['state_id']) && $post['state_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('state_id'); ?></div>
                                         </div>
                                     </div>
                                     <!-- ======= City ======= -->
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city_id"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input  class="form-control col-md-7 col-xs-12"  name="city"  id="city" value="<?php echo isset($post['city']) ?  $post['city'] : ''; ?>" placeholder="<?php echo $this->lang->line('city'); ?>" required="required" type="text">
-                                            <div class="help-block"><?php echo form_error('city'); ?></div>
+                                            <select  class="form-control col-md-7 col-xs-12" name="city_id" id="add_city_id" required="required">
+                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                            </select>
+                                            <div class="help-block"><?php echo form_error('city_id'); ?></div>
                                         </div>
-                                    </div>
+                                    </div>     
                                     <!-- ======= Email ======= -->
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span>
@@ -307,7 +316,7 @@
                             <div class="tab-pane fade in active" id="tab_edit_preenroll">
                                 <div class="x_content"> 
                                     <?php echo form_open_multipart(site_url('preenroll/edit/'. $preenroll->id), array('name' => 'edit', 'id' => 'edit', 'class'=>'form-horizontal form-label-left'), ''); ?>
-                                        <?php $this->load->view('layout/school_list_edit_form'); ?>
+            
                                         <!-- ======= Guardian Name ======= -->
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="guardian_name"><?php echo $this->lang->line('guardian_name'); ?> <span class="required">*</span>
@@ -344,24 +353,34 @@
                                                 <div class="help-block"><?php echo form_error('address'); ?></div>
                                             </div>
                                         </div>
-                                        <!-- ======= State ======= -->
+                                        
+                                         <!-- ======= State ======= -->
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state"><?php echo $this->lang->line('state'); ?> <span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state_id"><?php echo $this->lang->line('state'); ?> <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input  class="form-control col-md-7 col-xs-12"  name="state"  id="state" value="<?php echo isset($preenroll->state) ?  $preenroll->state : $post['state']; ?>" placeholder="<?php echo $this->lang->line('state'); ?>" required="required" type="text">
-                                                <div class="help-block"><?php echo form_error('state'); ?></div>
+                                                <select  class="form-control col-md-7 col-xs-12" name="state_id" id="edit_state_id" onchange="get_city_by_state('');" required="required">
+                                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                    <?php $states = get_states_list(); ?>
+                                                    <?php foreach($states as $obj){ ?>
+                                                        <option value="<?php echo $obj->id; ?>" <?php if($preenroll->state_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                                <div class="help-block"><?php echo form_error('state_id'); ?></div>
                                             </div>
                                         </div>
+
                                         <!-- ======= City ======= -->
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city_id"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input  class="form-control col-md-7 col-xs-12"  name="city"  id="city" value="<?php echo isset($preenroll->city) ?  $preenroll->city : $post['city']; ?>" placeholder="<?php echo $this->lang->line('city'); ?>" required="required" type="text">
-                                                <div class="help-block"><?php echo form_error('city'); ?></div>
+                                                <select  class="form-control col-md-7 col-xs-12" name="city_id" id="edit_city_id" required="required">
+                                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                </select>
+                                                <div class="help-block"><?php echo form_error('city_id'); ?></div>
                                             </div>
-                                        </div>
+                                        </div> 
                                         <!-- ======= Email ======= -->
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span>
@@ -696,7 +715,8 @@
     //  $('#add_dob').datepicker();
     //  $('#edit_dob').datepicker();
      <?php if(isset($edit)){ ?>
-           get_class_and_section('<?php echo $preenroll->school_id; ?>', '<?php echo $preenroll->class_id; ?>','<?php echo $preenroll->section_id; ?>')  ;     
+            get_city_by_state('<?php echo $preenroll->city_id; ?>')
+           get_class_and_section('<?php echo $preenroll->school_id; ?>', '<?php echo $preenroll->class_id; ?>','<?php echo $preenroll->section_id; ?>')  ; 
     <?php } ?>   
 
     function get_class_and_section(school_id,class_id, section_id){
@@ -788,6 +808,35 @@
                         $('#edit_class_id').html(response);
                     }
                     get_section_by_class(class_id,'');
+                }
+            }
+        });
+    }
+    function get_city_by_state(city_id){
+        // var isEditMode = isset($edit);
+        var state_id = '';
+        <?php if(isset($edit)){ ?>                
+            state_id = $('#edit_state_id').val();
+        <?php }else{ ?> 
+            state_id = $('#add_state_id').val();
+        <?php } ?> 
+        if(!state_id){
+            alert('<?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('state'); ?>');
+            return false;
+        }
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_city_by_state'); ?>",
+            data   : { state_id:state_id},               
+            async  : false,
+            success: function(response){     
+                if(response)
+                {
+                    <?php if(!isset($edit)){ ?>                                             
+                        $('#add_city_id').html(response);
+                    <?php }else{ ?> 
+                        $('#edit_city_id').html(response);
+                    <?php } ?> 
                 }
             }
         });

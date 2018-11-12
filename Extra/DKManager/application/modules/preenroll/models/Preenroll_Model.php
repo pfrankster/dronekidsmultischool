@@ -12,13 +12,15 @@ class Preenroll_Model extends MY_Model {
     
     public function get_preenroll_list(){
         
-        $this->db->select('PE.*, SH.id AS school_id, SH.school_name AS school_name, CL.id AS class_id, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status');
+        $this->db->select('PE.*, SH.id AS school_id, SH.school_name AS school_name, CL.id AS class_id, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status, ST.name AS state_name, CT.name AS city_name');
         $this->db->from('pre_enrollments AS PE');
         $this->db->join('sections AS SC', 'SC.id = PE.section_id', 'left');
         $this->db->join('paymant_types AS PY', 'PY.id = PE.payment_type_id', 'left');
         $this->db->join('pe_status AS PS', 'PS.id = PE.status_id', 'left');
         $this->db->join('schools AS SH', 'SH.id = SC.school_id', 'left');
         $this->db->join('classes AS CL', 'CL.id = SC.class_id', 'left');
+        $this->db->join('state AS ST', 'ST.id = PE.state_id', 'left');
+        $this->db->join('city AS CT', 'CT.id = PE.city_id', 'left');
         
         // if($this->session->userdata('role_id') != SUPER_ADMIN){
         //     $this->db->where('SH.school_id', $this->session->userdata('school_id'));
@@ -29,13 +31,15 @@ class Preenroll_Model extends MY_Model {
     
     public function get_single_preenroll($id){
       
-        $this->db->select('PE.*, SH.id AS school_id,SH.school_name AS school_name, CL.id AS class_id, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status');
+        $this->db->select('PE.*, SH.id AS school_id,SH.school_name AS school_name, CL.id AS class_id, CL.name AS class_name, SC.name AS section_name, PY.name AS payment_type, PS.name AS status, ST.name AS state_name, CT.name AS city_name');
         $this->db->from('pre_enrollments AS PE');
         $this->db->join('sections AS SC', 'SC.id = PE.section_id', 'left');
         $this->db->join('paymant_types AS PY', 'PY.id = PE.payment_type_id', 'left');
         $this->db->join('pe_status AS PS', 'PS.id = PE.status_id', 'left');
         $this->db->join('schools AS SH', 'SH.id = SC.school_id', 'left');
         $this->db->join('classes AS CL', 'CL.id = SC.class_id', 'left');
+        $this->db->join('state AS ST', 'ST.id = PE.state_id', 'left');
+        $this->db->join('city AS CT', 'CT.id = PE.city_id', 'left');
         $this->db->where('PE.id', $id);
         
         return $this->db->get()->row();

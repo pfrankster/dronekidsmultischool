@@ -1044,7 +1044,7 @@ if (!function_exists('get_city_list')) {
         $ci = & get_instance();
         $ci->db->select('CT.*');
         $ci->db->from('city AS CT');
-        $ci->db->where('CT.hf_id', $state_id);
+        $ci->db->where('CT.uf_id', $state_id);
         return $ci->db->get()->result();
     }
 }
