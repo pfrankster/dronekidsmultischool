@@ -571,3 +571,6 @@ $lang['student_gender'] = "Student Gender"; // pe Added
 $lang['payment_type'] = "Payment Type"; // pe Added
 $lang['approval'] = "Approval"; // pe Added
 $lang['confirm_approval'] = "Are you sure you want to approve this"; // pe Added
+$lang['course_price'] = "Course Price"; // pe Added
+$lang['cash_discount'] = "Cash Discount"; // pe Added
+$lang['installment'] = "Installment"; // pe Added
