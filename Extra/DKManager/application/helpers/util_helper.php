@@ -1048,3 +1048,15 @@ if (!function_exists('get_city_list')) {
         return $ci->db->get()->result();
     }
 }
+
+if (!function_exists('get_school_list_by_city')) {
+
+    function get_school_list_by_city($city_id) {
+        $ci = & get_instance();
+        $ci->db->select('SH.*');
+        $ci->db->from('schools AS SH');
+        $ci->db->where(['SH.status', 1]);
+        $ci->db->where('SH.city_id',$city_id);
+        return $ci->db->get()->result();
+    }
+}

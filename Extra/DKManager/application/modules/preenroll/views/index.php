@@ -177,7 +177,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city_id"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="city_id" id="add_city_id" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="city_id" id="add_city_id" onchange="get_schools_by_city();" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                             </select>
                                             <div class="help-block"><?php echo form_error('city_id'); ?></div>
@@ -238,10 +238,6 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select  class="form-control col-md-7 col-xs-12" name="school_id" id="add_school_id" onchange="get_class_by_school(this.value,'');">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                
-                                                <?php foreach($schools as $obj){ ?>
-                                                    <option value="<?php echo $obj->id; ?>" <?php echo isset($post['school_id']) && $post['school_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->school_name; ?></option>
-                                                <?php } ?>
                                             </select>
                                             <div class="help-block"><?php echo form_error('school_id'); ?></div>
                                         </div>
@@ -375,7 +371,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city_id"><?php echo $this->lang->line('city'); ?> <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select  class="form-control col-md-7 col-xs-12" name="city_id" id="edit_city_id" required="required">
+                                                <select  class="form-control col-md-7 col-xs-12" name="city_id" id="edit_city_id" onchange="get_schools_by_city();"  required="required">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 </select>
                                                 <div class="help-block"><?php echo form_error('city_id'); ?></div>
@@ -434,11 +430,8 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="school_id"><?php echo $this->lang->line('school'); ?> 
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select  class="form-control col-md-7 col-xs-12" name="school_id" id="edit_school_id" onchange="get_class_by_school(this.value,'');" disabled="disabled">
+                                                <select  class="form-control col-md-7 col-xs-12" name="school_id" id="edit_school_id" onchange="get_class_by_school(this.value,'');">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                    <?php foreach($schools as $obj){ ?>
-                                                        <option value="<?php echo $obj->id; ?>" <?php if($preenroll->school_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->school_name; ?></option>
-                                                    <?php } ?>
                                                 </select>
                                                 <div class="help-block"><?php echo form_error('school_id'); ?></div>
                                             </div>
@@ -448,7 +441,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> 
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select  class="form-control col-md-7 col-xs-12" name="class_id" id="edit_class_id" onchange="get_section_by_class(this.value,'');" disabled="disabled">
+                                                <select  class="form-control col-md-7 col-xs-12" name="class_id" id="edit_class_id" onchange="get_section_by_class(this.value,'');">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 </select>
                                                 <div class="help-block"><?php echo form_error('class_id'); ?></div>
@@ -459,7 +452,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="section_id"><?php echo $this->lang->line('section'); ?> 
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select  class="form-control col-md-7 col-xs-12" name="section_id" id="edit_section_id" disabled="disabled">
+                                                <select  class="form-control col-md-7 col-xs-12" name="section_id" id="edit_section_id">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 </select>
                                                 <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -758,6 +751,35 @@
             
         });
 
+    }
+
+    function get_schools_by_city(){
+        var city_id = '';
+        <?php if(isset($edit)){ ?>                
+            city_id = $('#edit_city_id').val();
+        <?php }else{ ?> 
+            city_id = $('#add_city_id').val();
+        <?php } ?> 
+        if(!city_id){
+            alert('<?php echo $this->lang->line('select'); ?> <?php echo $this->lang->line('city'); ?>');
+            return false;
+        }
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_schools_by_city'); ?>",
+            data   : { city_id:city_id},               
+            async  : false,
+            success: function(response){     
+                if(response)
+                {
+                    <?php if(!isset($edit)){ ?>                                             
+                        $('#add_school_id').html(response);
+                    <?php }else{ ?> 
+                        $('#edit_school_id').html(response);
+                    <?php } ?> 
+                }
+            }
+        });
     }
 
     function get_section_by_class(class_id, section_id){

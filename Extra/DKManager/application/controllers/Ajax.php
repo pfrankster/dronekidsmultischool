@@ -672,7 +672,6 @@ class Ajax extends My_Controller {
         echo $str;
     }
 
-
     public function get_city_by_state() {
         $state_id = $this->input->post('state_id');
         $city = get_city_list($state_id);
@@ -689,4 +688,19 @@ class Ajax extends My_Controller {
         echo $str;
     }
 
+    public function get_schools_by_city() {
+        $city_id = $this->input->post('city_id');
+        $schools = get_school_list_by_city($city_id);
+
+
+        $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
+        $select = 'selected="selected"';
+        if (!empty($schools)) {
+            foreach ($schools as $obj) {
+                $selected = $city_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->school_name . '</option>';
+            }
+        }
+        echo $str;
+    }
 }
