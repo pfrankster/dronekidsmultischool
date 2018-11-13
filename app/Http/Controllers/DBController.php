@@ -8,23 +8,31 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class DBController extends Controller
 {
+
+    // ========== Get School ==========
     static function get_shools(){
         return DB::table('schools')->where('status',1)->get(); 
     }
-
+    // ========== Get School by ==========
+    public function get_school_by(Request $request){
+        $result =  DB::table('schools')->where([['city_id','=',$request->city_id],['status','=',1]])->get();
+        return response()->json($result);
+    }
+    // ========== Get Class by ==========
     public function get_classes_by(Request $request){
         $result =  DB::table('classes')->where([['school_id','=',$request->school_id],['status','=',1]])->get();
         return response()->json($result);
     }
+    // ========== Get Section by ==========
     public function get_sections_by(Request $request){
         $result =  DB::table('sections')->where([['school_id','=',$request->school_id],['class_id','=',$request->class_id],['status','=',1]])->get();
         return response()->json($result);
     }
-
+    // ========== Get Payment Type ==========
     static function get_payment_types(){
         return DB::table('paymant_types')->get();
     }
-
+    // ========== submit Preenrollment ==========
     static function submit_preenrollment(Request $request){
         $id = DB::table('pre_enrollments')->insertGetId([
             'guardian_name' => $request->guardian_name, 
@@ -60,71 +68,71 @@ class DBController extends Controller
     static function get_city(Request $request){
         return DB::table('city')->where('uf_id',$request->uf_id)->get();
     }
-    static function add_guardian($obj){
-        $id = DB::table('guardians')->insertGetId([
-            'school_id' => $objs->school, 
-            'user_id' => SELF::add_user($obj),
-            'name' => $obj->guardian_name,
-            'phone' => $request->phone,
-            'present_address' => $obj->full_address,
-            'status' => 1,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'created_by' => 0,
-            'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'modified_by' => 0,
-            ]
-        );
-        return $id;
-    }
+    // static function add_guardian($obj){
+    //     $id = DB::table('guardians')->insertGetId([
+    //         'school_id' => $objs->school, 
+    //         'user_id' => SELF::add_user($obj),
+    //         'name' => $obj->guardian_name,
+    //         'phone' => $request->phone,
+    //         'present_address' => $obj->full_address,
+    //         'status' => 1,
+    //         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         'created_by' => 0,
+    //         'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         'modified_by' => 0,
+    //         ]
+    //     );
+    //     return $id;
+    // }
 
-    static function add_student($obj, $guardian_id){
-       $id = DB::table('students')->insertGetId([
-            'school_id' => $objs->school, 
-            'guardian_id' => $guardian_id, 
-            'user_id' => SELF::add_user($obj),
-            'registration_no' => 0,
-            // 'group' => 0,
-            'name' => $obj->student_name,
-            'phone' => $request->phone,
-            'present_address' => $obj->full_address,
-            'gender' => $obj->gender,
-            'dob' => Carbon::now()->format('Y-m-d'),
-            'status' => 1,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'created_by' => 0,
-            'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'modified_by' => 0,
-            ]
-        );
-        return $id;
-    }
+    // static function add_student($obj, $guardian_id){
+    //    $id = DB::table('students')->insertGetId([
+    //         'school_id' => $objs->school, 
+    //         'guardian_id' => $guardian_id, 
+    //         'user_id' => SELF::add_user($obj),
+    //         'registration_no' => 0,
+    //         // 'group' => 0,
+    //         'name' => $obj->student_name,
+    //         'phone' => $request->phone,
+    //         'present_address' => $obj->full_address,
+    //         'gender' => $obj->gender,
+    //         'dob' => Carbon::now()->format('Y-m-d'),
+    //         'status' => 1,
+    //         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         'created_by' => 0,
+    //         'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         'modified_by' => 0,
+    //         ]
+    //     );
+    //     return $id;
+    // }
 
-    static function add_enrollment($obj, $student_id){
-        $id = DB::table('enrollments')->insertGetId([
-            'student_id' => $student_id,
-            'school_id' => $objs->school, 
-            'class_id' => $objs->class, 
-            'section_id' => $objs->section, 
-            'academic_year_id' => 0,
-            // 'roll_no' => ,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            $data['status']     = 1,
-        ]);
-        return $id;
-    }
+    // static function add_enrollment($obj, $student_id){
+    //     $id = DB::table('enrollments')->insertGetId([
+    //         'student_id' => $student_id,
+    //         'school_id' => $objs->school, 
+    //         'class_id' => $objs->class, 
+    //         'section_id' => $objs->section, 
+    //         'academic_year_id' => 0,
+    //         // 'roll_no' => ,
+    //         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         $data['status']     = 1,
+    //     ]);
+    //     return $id;
+    // }
 
-    static function add_user($obj){
-        $id = DB::table('users')->insertGetId([
-            'school_id' => $objs->school, 
-            'role_id' => $objs->role,
-            'password' => "",//str_random(6),
-            // 'temp_password' => "";//str_random(6),
-            'email' => $request->email,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            $data['status']     = 1,
-        ]);
-        return $id;
-    }
+    // static function add_user($obj){
+    //     $id = DB::table('users')->insertGetId([
+    //         'school_id' => $objs->school, 
+    //         'role_id' => $objs->role,
+    //         'password' => "",//str_random(6),
+    //         // 'temp_password' => "";//str_random(6),
+    //         'email' => $request->email,
+    //         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         'modified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    //         $data['status']     = 1,
+    //     ]);
+    //     return $id;
+    // }
 }

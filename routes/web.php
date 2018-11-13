@@ -20,9 +20,11 @@ Route::get('/', function () {
 
 Route::post('pvalidation','PEValController@ValidationPost');
 
+Route::post('getcity', 'DBController@get_city');
+Route::post('getschool', 'DBController@get_school_by');
 Route::post('getclass', 'DBController@get_classes_by');
 Route::post('getsections', 'DBController@get_sections_by');
-Route::post('getcity', 'DBController@get_city');
+
 
 Route::post('submitpreenroll', 'DBController@submit_preenrollment');
 
