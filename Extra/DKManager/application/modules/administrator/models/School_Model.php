@@ -8,6 +8,13 @@ class School_Model extends MY_Model {
         parent::__construct();
     }
     
+    function get_schools(){
+        $this->db->select('SH.*, ST.name AS state_name, CT.name AS city_name');
+        $this->db->from('schools AS SH');
+        $this->db->join('state AS ST', 'ST.id = SH.state_id', 'left');
+        $this->db->join('city AS CT', 'CT.id = SH.city_id', 'left');
+        return $this->db->get()->result();
+    }
         
     function duplicate_check($school_name, $id = null ){           
            

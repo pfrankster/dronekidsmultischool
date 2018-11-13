@@ -36,7 +36,8 @@ class School extends MY_Controller {
         
         check_permission(VIEW);
         
-        $this->data['schools'] = $this->school->get_list('schools', array('status' => 1), '','', '', 'id', 'ASC');
+        // $this->data['schools'] = $this->school->get_list('schools', array('status' => 1), '','', '', 'id', 'ASC');
+        $this->data['schools'] = $this->school->get_schools();
         $this->data['list'] = TRUE;
         $this->layout->title($this->lang->line('manage_school'). ' | ' . SMS);
         $this->layout->view('school/index', $this->data);            
@@ -194,6 +195,8 @@ class School extends MY_Controller {
         $items = array();
         $items[] = 'school_name';
         $items[] = 'address';
+        $items[] = 'state_id';
+        $items[] = 'city_id';
         $items[] = 'phone';
         $items[] = 'email';
         $items[] = 'currency';
