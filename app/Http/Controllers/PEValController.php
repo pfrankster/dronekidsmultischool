@@ -45,19 +45,17 @@ class PEValController extends Controller
 	
 	public function processe_data(Request $request , $enroll_id){
 		$class_data = DBController::get_class_data((int)$request->class);
-		
-		// $value_class = 0;
-		$course_value = $class_data->monthly_tution_fee;
+
+		$course_value = $class_data->course_price;
 		$n_installments = 1;
 
-		if ($request->payment_type ==2){
-			// $value_class = $class_data->monthly_tution_fee;
-			$n_installments = 6;
+		if ($request->payment_type == 1){
+			$course_value = $course_value * (100-$class_data->cash_discount);
+		}else{
+			$n_installments = $class_data->installment;
 		}
 
-		// $enroll_id;
 		$tmp = array("course_value"=>$course_value,"n_installments"=>$n_installments, "enroll_id"=>$enroll_id);
-		// $new = array_merge($request,$tmp);
 		$url = MSGController::create_pay_url($request,$tmp);
 		// dd($url);
 		return $url;
