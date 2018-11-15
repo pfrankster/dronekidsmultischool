@@ -43,5 +43,6 @@ return [
     'back_home' => 'Home Page',
     'pay_page' => 'Payment Page',
     'name' => 'Name',
+    'age' => 'Age',
     
 ];

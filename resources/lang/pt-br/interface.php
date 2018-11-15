@@ -2,7 +2,7 @@
 
 return [
     //title
-    'title' => 'Mátricula',
+    'title' => 'Matrícula',
     //Group title
     'guardian' => 'Responsavel',
     'student' => 'Estudante',
@@ -31,8 +31,8 @@ return [
     'uncle' => 'Tio',
     'maternal_uncle' => 'Tio Maternal',
     'other_relative' => 'Outro relativo',
-    'male' => 'Homen',
-    'female' => 'Mulher',
+    'male' => 'Masculino',
+    'female' => 'Feminino',
     //Others
     'terms' => 'Contrato',
     'submit' => 'Enviar',
@@ -43,4 +43,5 @@ return [
     'back_home' => 'Pagina Inicial',
     'pay_page' => 'Pagina de pagamento',
     'name' => 'Nome',
+    'age' => 'Idade',
 ];
