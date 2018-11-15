@@ -11,26 +11,26 @@ class DBController extends Controller
 
     // ========== Get School ==========
     static function get_shools(){
-        return DB::table('schools')->where('status',1)->get(); 
+        return DB::table('schools')->where('status',1)->orderBy('school_name', 'asc')->get(); 
     }
     // ========== Get School by ==========
     public function get_school_by(Request $request){
-        $result =  DB::table('schools')->where([['city_id','=',$request->city_id],['status','=',1]])->get();
+        $result =  DB::table('schools')->where([['city_id','=',$request->city_id],['status','=',1]])->orderBy('school_name', 'asc')->get();
         return response()->json($result);
     }
     // ========== Get Class by ==========
     public function get_classes_by(Request $request){
-        $result =  DB::table('classes')->where([['school_id','=',$request->school_id],['status','=',1]])->get();
+        $result =  DB::table('classes')->where([['school_id','=',$request->school_id],['status','=',1]])->orderBy('name', 'asc')->get();
         return response()->json($result);
     }
     // ========== Get Section by ==========
     public function get_sections_by(Request $request){
-        $result =  DB::table('sections')->where([['school_id','=',$request->school_id],['class_id','=',$request->class_id],['status','=',1]])->get();
+        $result =  DB::table('sections')->where([['school_id','=',$request->school_id],['class_id','=',$request->class_id],['status','=',1]])->orderBy('name', 'asc')->get();
         return response()->json($result);
     }
     // ========== Get Payment Type ==========
     static function get_payment_types(){
-        return DB::table('paymant_types')->get();
+        return DB::table('paymant_types')->orderBy('name', 'asc')->get();
     }
     // ========== submit Preenrollment ==========
     static function submit_preenrollment(Request $request){
@@ -63,10 +63,10 @@ class DBController extends Controller
     }
 
     static function get_states(){
-        return DB::table('state')->get();
+        return DB::table('state')->orderBy('name', 'asc')->get();
     }
     static function get_city(Request $request){
-        return DB::table('city')->where('uf_id',$request->uf_id)->get();
+        return DB::table('city')->where('uf_id',$request->uf_id)->orderBy('name', 'asc')->get();
     }
     // static function add_guardian($obj){
     //     $id = DB::table('guardians')->insertGetId([
