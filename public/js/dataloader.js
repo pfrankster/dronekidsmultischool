@@ -8,13 +8,14 @@ $(document).ready(function(){
     // ===============================
     // =========== Events ============
     // ===============================
-    // ---------- Re-populate city selector ----------
-    $("#state").change (function(){
-        get_cities_by_state($("#state").val());
+    // ---------- Re-populate city with course selector ----------
+    $("#state_schools").change (function(){
+        getcities_with_course_by_state($("#state_schools").val());
     });
+
     // ---------- Re-populate school selector ----------
-    $("#city").change (function(){
-        get_schools_by_city($("#city").val());
+    $("#city_schools").change (function(){
+        get_schools_by_city($("#city_schools").val());
     });
     // ---------- Re-populate classes selector ----------
     $("#school").change (function(){
@@ -25,6 +26,11 @@ $(document).ready(function(){
     $("#class").change (function(){
         get_sections_by_school_and_class($("#school").val(),$("#class").val());
     });
+
+    // ---------- Re-populate city selector ----------
+    $("#state").change (function(){
+        get_cities_by_state($("#state").val());
+    });
     
 
     // ===============================
@@ -32,10 +38,24 @@ $(document).ready(function(){
     // ===============================
     // ========== Get Cities ==========
     function get_cities_by_state(state_id){
-        $.post('index.php/getcity',{uf_id : state_id}, function(response){
+        $.post('index.php/getcities',{uf_id : state_id}, function(response){
             clean_cities();
             $.each(response, function(index, data){
                 $('#city')
+                .append($("<option></option>")
+                .attr("value",data.id)
+                .text(data.name));
+            });                    
+        });
+    }
+
+
+    // ========== Get Cities with Course ==========
+    function getcities_with_course_by_state(state_id){
+        $.post('index.php/getcitieswithcourse',{uf_id : state_id}, function(response){
+            clean_cities_with_courses();
+            $.each(response, function(index, data){
+                $('#city_schools')
                 .append($("<option></option>")
                 .attr("value",data.id)
                 .text(data.name));
@@ -80,10 +100,16 @@ $(document).ready(function(){
     }
 
 
+
     // ========== Clean City ==========
     function clean_cities(){
         $('#city').children('option:not(:first)').remove();
         $("#city").val("");
+    }
+    // ========== Clean City ==========
+    function clean_cities_with_courses(){
+        $('#city_schools').children('option:not(:first)').remove();
+        $("#city_schools").val("");
         clean_schools();
     }
     // ========== Clean Schools ==========

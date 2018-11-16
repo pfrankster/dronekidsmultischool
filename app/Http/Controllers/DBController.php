@@ -41,10 +41,13 @@ class DBController extends Controller
             'address' => $request->address,
             'state' => $request->state,
             'city' => $request->city,
+            'state_id' => $request->state,
+            'city_id' => $request->city,
             'email' => $request->email,
             'guardian_relation' => $request->relation,
             'student_name' => $request->student_name,
             'student_gender' => $request->gender,
+            'student_age' => $request->student_age,
             'section_id' => (int)$request->section,
             'payment_type_id' => (int)$request->payment_type,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -65,8 +68,18 @@ class DBController extends Controller
     static function get_states(){
         return DB::table('state')->orderBy('name', 'asc')->get();
     }
+
     static function get_city(Request $request){
         return DB::table('city')->where('uf_id',$request->uf_id)->orderBy('name', 'asc')->get();
+    }
+
+    static function get_states_with_courses(){
+        $stateList = DB::table('schools')->where('status',1)->pluck('state_id'); 
+        return DB::table('state')->whereIn('id',$stateList)->orderBy('name', 'asc')->get();
+    }
+    static function get_city_with_courses(Request $request){
+        $cityList = DB::table('schools')->where('status',1)->pluck('city_id'); 
+        return DB::table('city')->whereIn('id',$cityList)->where('uf_id',$request->uf_id)->orderBy('name', 'asc')->get();
     }
     // static function add_guardian($obj){
     //     $id = DB::table('guardians')->insertGetId([

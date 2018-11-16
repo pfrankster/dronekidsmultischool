@@ -9,8 +9,9 @@
 <?php
         use App\Http\Controllers\DBController;
         $paymentTypes = DBController::get_payment_types();
+        $state_schools = DBController::get_states_with_courses();
         $states = DBController::get_states();
-        $shools = DBController::get_shools();
+        // $shools = DBController::get_shools();
 ?>
 <div class= "container shadow p-3">
 <!-- <label for="teste">teste</label> -->
@@ -31,6 +32,78 @@
                 </ul>
             </div>
         @endif
+        <!-- ============================================== -->
+        <!-- Classes group -->
+        <!-- ============================================== -->
+        <div id="gClass" class= "form-group  bg-info rounded  p-2" >
+            <div class= "input-group justify-content-center" >
+                <label for="gClass" class="">@lang('interface.class')</label>
+            </div>
+            <div class="row">
+                <!-- ======= State ======= -->
+                <div class= "col-md-6 input-group my-2 " >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text "style="min-width:100px">@lang('interface.state')</span>
+                    </div>
+                    <select id="state_schools" name="state_schools" class="form-control {{ $errors->has('state_schools') ? 'is-invalid' : '' }}" value="{{ old('state_schools') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                        <?php 
+                            foreach($state_schools as $state){
+                                echo "<option value=" . $state->id . ">" . $state->name ."</option>";
+                            } 
+                        ?>
+                    </select> 
+                    <span class="col-md-12 text-danger">{{ $errors->first('state_schools') }}</span>
+                </div> 
+                <!-- ======= City ======= -->
+                <div class= "col-md-6 input-group my-2 " >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.city')</span>
+                    </div>
+                    <select id="city_schools" name="city_schools" class="form-control {{ $errors->has('city_schools') ? 'is-invalid' : '' }}" value="{{ old('city_schools') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
+                    <span class="col-md-12 text-danger">{{ $errors->first('city_schools') }}</span>
+                </div> 
+            </div> 
+            <div class="row">
+                <!-- ======= School ======= -->
+                <div class= "col-md-6 input-group my-2 " >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text "style="min-width:100px">@lang('interface.school')</span>
+                    </div>
+                    <select id="school" name="school" class="form-control {{ $errors->has('school') ? 'is-invalid' : '' }}" value="{{ old('school') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
+                    <span class="col-md-12 text-danger">{{ $errors->first('school') }}</span>
+                </div> 
+                <!-- ======= Class ======= -->
+                <div class= "col-md-6 input-group my-2 " >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.class')</span>
+                    </div>
+                    <select id="class" name="class" class="form-control {{ $errors->has('class') ? 'is-invalid' : '' }}" value="{{ old('class') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
+                    <span class="col-md-12 text-danger">{{ $errors->first('class') }}</span>
+                </div> 
+            </div> 
+            <div class="row">
+                <!-- ======= Section ======= -->
+                <div class= "col-md-6 input-group my-2 " >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.section')</span>
+                    </div>
+                    <select id="section" name="section" class="form-control {{ $errors->has('section') ? 'is-invalid' : '' }}" value="{{ old('section') }}">
+                        <option gender selected value> -- @lang('interface.select_option') -- </option>
+                    </select> 
+                    <span class="col-md-12 text-danger">{{ $errors->first('section') }}</span>
+                </div> 
+            </div> 
+        </div> 
+        <!-- ============================================== -->
+        <!-- Gruarian info group -->
+        <!-- ============================================== -->
         <div id="gGuardian" class= "form-group  bg-info rounded  p-2" >
             <div class= "input-group justify-content-center" >
                 <label for="gGuardian" class="">@lang('interface.guardian')</label>
@@ -127,6 +200,9 @@
                 </div> 
             </div>
         </div> 
+        <!-- ============================================== -->
+        <!-- Student info group -->
+        <!-- ============================================== -->
         <div id="gStudent" class= "form-group  bg-info rounded  p-2" >
             <div class= "input-group justify-content-center" >
                 <label for="gStudent" class="">@lang('interface.student')</label>
@@ -153,51 +229,20 @@
                     <span class="col-md-12 text-danger">{{ $errors->first('gender') }}</span>
                 </div> 
             </div>
-        </div> 
-        <div id="gClass" class= "form-group  bg-info rounded  p-2" >
-            <div class= "input-group justify-content-center" >
-                <label for="gClass" class="">@lang('interface.class')</label>
+            <div class="row">
+                <!-- ======= Student Age ======= -->
+                <div class= "col-md-6 input-group my-2 " >
+                    <div class= "input-group-prepend" >
+                        <span class="input-group-text"style="min-width:100px">@lang('interface.age')</span>
+                    </div>
+                    <input type="text" id="student_age" name="student_age" class="form-control {{ $errors->has('student_age') ? 'is-invalid' : '' }}" placeholder="@lang('interface.age')" value="{{ old('student_age') }}">
+                    <span class="col-md-12 text-danger">{{ $errors->first('student_age') }}</span>
+                </div>
             </div>
-            <div class="row">
-                <!-- ======= School ======= -->
-                <div class= "col-md-6 input-group my-2 " >
-                    <div class= "input-group-prepend" >
-                        <span class="input-group-text "style="min-width:100px">@lang('interface.school')</span>
-                    </div>
-                    <select id="school" name="school" class="form-control {{ $errors->has('school') ? 'is-invalid' : '' }}" value="{{ old('school') }}">
-                        <option gender selected value> -- @lang('interface.select_option') -- </option>
-                        <?php 
-                            foreach($shools as $shool){
-                                echo "<option value=" . $shool->id . ">" . $shool->school_name ."</option>";
-                            } 
-                        ?>
-                    </select> 
-                    <span class="col-md-12 text-danger">{{ $errors->first('school') }}</span>
-                </div> 
-                <!-- ======= Class ======= -->
-                <div class= "col-md-6 input-group my-2 " >
-                    <div class= "input-group-prepend" >
-                        <span class="input-group-text"style="min-width:100px">@lang('interface.class')</span>
-                    </div>
-                    <select id="class" name="class" class="form-control {{ $errors->has('class') ? 'is-invalid' : '' }}" value="{{ old('class') }}">
-                        <option gender selected value> -- @lang('interface.select_option') -- </option>
-                    </select> 
-                    <span class="col-md-12 text-danger">{{ $errors->first('class') }}</span>
-                </div> 
-            </div> 
-            <div class="row">
-                <!-- ======= Section ======= -->
-                <div class= "col-md-6 input-group my-2 " >
-                    <div class= "input-group-prepend" >
-                        <span class="input-group-text"style="min-width:100px">@lang('interface.section')</span>
-                    </div>
-                    <select id="section" name="section" class="form-control {{ $errors->has('section') ? 'is-invalid' : '' }}" value="{{ old('section') }}">
-                        <option gender selected value> -- @lang('interface.select_option') -- </option>
-                    </select> 
-                    <span class="col-md-12 text-danger">{{ $errors->first('section') }}</span>
-                </div> 
-            </div> 
         </div> 
+        <!-- ============================================== -->
+        <!-- Others info -->
+        <!-- ============================================== -->
         <div class= "form-group  bg-info rounded  p-2 " >
             <!-- ======= Payment Type ======= -->
             <div class= "col-md-6 input-group my-2" >
